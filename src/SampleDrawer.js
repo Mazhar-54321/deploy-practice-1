@@ -1,3 +1,5 @@
+/* eslint-disable default-case */
+/* eslint-disable react/jsx-no-undef */
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -18,24 +20,24 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import SampleAutocomplete from './SampleAutocomplete';
-import SampleButtons from './SampleButtons';
-import SamplePagination from './SamplePagination';
-import SampleAccordion from './SampleAccordion';
-import SampleTextFields from './SampleTextFields';
-import SampleTable from './SampleTable';
-import VerticalLinearStepper from './SampleStepper';
-import SampleRatings from './SampleRatings';
-import SampleMenu from './SampleMenu';
-import SampleLoaders from './SampleLoaders';
-import SampleList from './SampleList';
-import SampleAlert from './SampleFeedbacks';
-import SampleAvatars from './SampleAvatars';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
 
 import { Accordion, AccordionDetails, AccordionSummary, createTheme } from '@mui/material';
+import SampleAutocomplete from './components/SampleAutocomplete';
+import SampleTextFields from './components/SampleTextFields';
+import SampleAccordion from './components/SampleAccordion';
+import SampleAvatars from './components/SampleAvatars';
+import SampleButtons from './components/SampleButtons';
+import SampleList from './components/SampleList';
+import SampleAlert from './components/SampleFeedbacks';
+import SampleLoaders from './components/SampleLoaders';
+import SampleMenu from './components/SampleMenu';
+import SamplePagination from './components/SamplePagination';
+import SampleTable from './components/SampleTable';
+import VerticalLinearStepper from './components/SampleStepper';
 
 const drawerWidth = 300;
 const BACKGROUND_SELECTED = 'rgb(0,0,0,1)'
