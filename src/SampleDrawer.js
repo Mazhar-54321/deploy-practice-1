@@ -99,58 +99,23 @@ export default function SampleDrawer() {
     },
   });
   const [listData, setListData] = React.useState([{
-    title: 'Accordion',
+    title: 'Namaz',
     background: BACKGROUND_NULL
   },
   {
-    title: 'Autocomplete',
+    title: 'Roza',
     background: BACKGROUND_NULL
   },
 
   {
-    title: 'Avatars',
+    title: 'Hujj',
     background: BACKGROUND_NULL
   },
   {
-    title: 'Buttons',
+    title: 'Zakat',
     background: BACKGROUND_NULL
   },
-  {
-    title: 'Feedbacks',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'List',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Loaders',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Menu',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Pagination',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Ratings',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Stepper',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Table',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Text Fields',
-    background: BACKGROUND_NULL
-  },])
+  ])
   const [appbarText, setAppbarText] = React.useState('Test Mode')
   const [open, setOpen] = React.useState(false);
   const [element, setElement] = React.useState(<SampleTextFields />)
@@ -243,18 +208,17 @@ export default function SampleDrawer() {
             id="panel1bh-header"
           >
             <Typography sx={{ width: '100%',fontWeight:'bold', textAlign:'left', flexShrink: 0 }}>
-              Zarooriyat-e-Ahle-Sunnat
+              Aamal
             </Typography>
           </AccordionSummary>
           <AccordionDetails style={{ padding: '0px 0px 0px 0px' }}>
             <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px' }}>
               {listData.map((text, index) => (
-                <ListItem sx={{ background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white' }} key={text} disablePadding>
+                <ListItem sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white' }} key={text} disablePadding>
                   <ListItemButton onClick={() => { setValue(index); getLayout(index); handleDrawerClose() }}>
-                    <ListItemIcon sx={{ color: text.background == BACKGROUND_NULL ? 'black' : 'white' }}>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={text.title} />
+                    {/* <ListItemIcon sx={{ color: text.background == BACKGROUND_NULL ? 'black' : 'white' }}>
+                    </ListItemIcon> */}
+                    <ListItemText sx={{marginLeft:'10px',}} primary={text.title} />
                   </ListItemButton>
                 </ListItem>
               ))}

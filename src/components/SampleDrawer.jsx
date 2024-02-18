@@ -97,58 +97,23 @@ export default function SampleDrawer() {
     },
   });
   const [listData, setListData] = React.useState([{
-    title: 'Accordion',
+    title: 'Namaz',
     background: BACKGROUND_NULL
   },
   {
-    title: 'Autocomplete',
+    title: 'Roza',
     background: BACKGROUND_NULL
   },
 
   {
-    title: 'Avatars',
+    title: 'Hujj',
     background: BACKGROUND_NULL
   },
   {
-    title: 'Buttons',
+    title: 'Zakat',
     background: BACKGROUND_NULL
   },
-  {
-    title: 'Feedbacks',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'List',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Loaders',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Menu',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Pagination',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Ratings',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Stepper',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Table',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Text Fields',
-    background: BACKGROUND_NULL
-  },])
+  ])
   const [appbarText, setAppbarText] = React.useState('Test Mode')
   const [open, setOpen] = React.useState(false);
   const [element, setElement] = React.useState(<SampleTextFields />)
@@ -241,7 +206,7 @@ export default function SampleDrawer() {
             id="panel1bh-header"
           >
             <Typography sx={{ width: '100%',textAlign:'left', flexShrink: 0 }}>
-              Zarooriyat-e-Ahle-SUnnat
+              Aamal
             </Typography>
           </AccordionSummary>
           <AccordionDetails style={{ padding: '0px 0px 0px 0px' }}>
@@ -259,56 +224,7 @@ export default function SampleDrawer() {
             </List>
           </AccordionDetails>
         </Accordion>
-        {/* <Accordion elevation={0} sx={{
-              '&:before': {
-                  display: 'none',
-              }}}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            style={{ margin: '0px 0px -15px 0px' }}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Typography sx={{ width: '100%',textAlign:'left', flexShrink: 0 }}>
-              Mamulat-e-Ahle-Sunnat
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails >
-            <List   >
-              {listData.map((text, index) => (
-                <ListItem  style={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white' }} key={text} >
-                  <ListItemButton onClick={() => { setValue(index); getLayout(index); handleDrawerClose() }}>
-                   
-                    <ListItemText style={{alignItems:'flex-start'}} primary={text.title} />
-                    <ListItemIcon style={{alignItems:'flex-start', color: text.background == BACKGROUND_NULL ? 'black' : 'white' }}>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </AccordionDetails>
-        </Accordion> */}
-        {/* <List disablePadding>
-          <ListItem disablePadding key={"Contact Us"}>
-            <ListItemButton>
-              
-              <ListItemText primary={"Contact Us"} />
-              <ListItemIcon >
-                <InboxIcon style={{marginLeft:'30px'}} />
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding key={"About Us"}>
-            <ListItemButton>
-              
-              <ListItemText primary={"About Us"} />
-              <ListItemIcon>
-                <InboxIcon  style={{marginLeft:'30px'}}/>
-              </ListItemIcon>
-            </ListItemButton>
-          </ListItem>
-        </List> */}
+       
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

@@ -38,14 +38,13 @@ export default function SampleAccordion() {
                 id="panel1bh-header"
               >
                 <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                  General settings
+                  Namaz me Kitne Farz Hai?
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography>
+                {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-                  Aliquam eget maximus est, id dignissim quam.
+                 Namaz me 4 farz hai . muh dhona,haath dhona,masah karna aur pair dhona
                 </Typography>
               </AccordionDetails>
             </Accordion>
