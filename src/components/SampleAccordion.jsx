@@ -9,7 +9,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 
 export default function SampleAccordion() {
   const [expanded, setExpanded] = React.useState(false);
-  const [elements, setElements] = React.useState([false, false, false, false])
+  const [elements, setElements] = React.useState([false])
   const handleChange = (panel) => (event, isExpanded) => {
     console.log("kkkk",panel,isExpanded)
     setExpanded(isExpanded ? panel : false);
