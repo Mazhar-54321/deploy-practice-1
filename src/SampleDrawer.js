@@ -226,7 +226,7 @@ export default function SampleDrawer() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <WestOutlinedIcon /> : <EastOutlinedIcon />}
+            {theme.direction === 'ltr' ? <WestOutlinedIcon style={{color:'#000000'}} /> : <EastOutlinedIcon style={{color:'#000000'}}/>}
           </IconButton>
         </DrawerHeader>
        
@@ -237,13 +237,13 @@ export default function SampleDrawer() {
                   display: 'none',
               }}}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<ExpandMoreIcon style={{fontWeight:'bold',color:'#000000'}} />}
             style={{ margin: '0px 0px -15px 0px' }}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Typography sx={{ width: '100%',textAlign:'left', flexShrink: 0 }}>
-              Zarooriyat-e-Ahle-SUnnat
+            <Typography sx={{ width: '100%',fontWeight:'bold', textAlign:'left', flexShrink: 0 }}>
+              Zarooriyat-e-Ahle-Sunnat
             </Typography>
           </AccordionSummary>
           <AccordionDetails style={{ padding: '0px 0px 0px 0px' }}>
