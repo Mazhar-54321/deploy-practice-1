@@ -4,28 +4,23 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
 
-import { Accordion, AccordionDetails, AccordionSummary, createTheme } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Button, Menu, MenuItem, createTheme } from '@mui/material';
 import SampleAutocomplete from './components/SampleAutocomplete';
 import SampleTextFields from './components/SampleTextFields';
 import SampleAccordion from './components/SampleAccordion';
@@ -116,14 +111,38 @@ export default function SampleDrawer() {
     background: BACKGROUND_NULL
   },
   ])
+
   const [appbarText, setAppbarText] = React.useState('Test Mode')
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const menuId = 'primary-search-account-menu';
+  const isMenuOpen = Boolean(anchorEl);
   const [element, setElement] = React.useState(<SampleTextFields />)
   const [value, setValue] = React.useState(null)
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
 
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+  const [anchorElMenu, setAnchorElMenu] = React.useState(null);
+  const [level,setLevel] = React.useState('Level 1');
+  const openMenu = Boolean(anchorElMenu);
+  const handleClick = (event) => {
+    console.log(event.currentTarget);
+    setAnchorElMenu(event.currentTarget);
+  };
+  const handleClose = (level) => {
+    setLevel(level);
+    setAnchorElMenu(null);
+  };
+  
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -141,11 +160,12 @@ export default function SampleDrawer() {
     }
     )
     setListData(oldArray)
+    setLevel('Level1');
     switch (value) {
-      case 0: setAppbarText('Sample Accordion'); setElement(<SampleAccordion />); break;
-      case 1: setAppbarText('Sample Autocomplete'); setElement(<SampleAutocomplete />); break;
-      case 2: setAppbarText('Sample Avatars'); setElement(<SampleAvatars />); break;
-      case 3: setAppbarText('Sample Buttons'); setElement(<SampleButtons />); break;
+      case 0: setAppbarText('Namaz'); setElement(<SampleAccordion />); break;
+      case 1: setAppbarText('Roza'); setElement(<SampleAutocomplete />); break;
+      case 2: setAppbarText('Hujj'); setElement(<SampleAvatars />); break;
+      case 3: setAppbarText('Zakat'); setElement(<SampleButtons />); break;
       case 4: setAppbarText('Sample Alerts'); setElement(<SampleAlert />); break;
       case 5: setAppbarText('Sample List'); setElement(<SampleList />); break;
       case 6: setAppbarText('Sample Loaders'); setElement(<SampleLoaders />); break;
@@ -157,7 +177,10 @@ export default function SampleDrawer() {
       case 12: setAppbarText('Sample Text'); setElement(<SampleTextFields />)
     }
   }
-
+  const handleMobileMenuOpen = (event) => {
+    console.log(event.currentTarget);
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar position="fixed" style={{background:"#000000",color:"#ffffff"}} open={open}>
@@ -171,9 +194,34 @@ export default function SampleDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" style={{width:'120px'}} noWrap component="div">
             {appbarText}
           </Typography>
+          <div style={{display:'flex',width:'100%',justifyContent:'flex-end'}}>
+          <Button
+        id="basic-button"
+        aria-controls={openMenu ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={openMenu ? 'true' : undefined}
+        onClick={handleClick}
+        style={{color:'white',textTransform:'none'}}
+      >
+       { level}
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorElMenu}
+        open={openMenu}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={()=>handleClose('Level1')}>Level1</MenuItem>
+        <MenuItem onClick={()=>handleClose('Level2')}>Level2</MenuItem>
+        <MenuItem onClick={()=>handleClose('Level3')}>Level3</MenuItem>
+      </Menu>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer

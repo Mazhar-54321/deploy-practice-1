@@ -33,12 +33,12 @@ export default function SampleAccordion() {
               }
           }} expanded={elements[i]} onChange={handleChange(i)}>
               <AccordionSummary
-                expandIcon={elements[i] ? <RemoveIcon /> : <AddIcon />}
+                expandIcon={elements[i] ? <RemoveIcon sx={{color:'#000000'}} /> : <AddIcon sx={{color:'#000000'}}/>}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
                 // style={{paddingLeft:'0px',marginLeft:'0px',display:'flex',flexDirection:'row', justifyContent:'flex-start'}}
               >
-                <Typography sx={{ width: '100%',marginLeft:'-20px',paddingLeft:'0px' }}>
+                <Typography sx={{ width: '100%',marginLeft:'-20px',paddingLeft:'0px',fontWeight:'bold' }}>
                   Namaz me Kitne Farz Hai?
                 </Typography>
                 {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
