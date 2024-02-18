@@ -36,14 +36,15 @@ export default function SampleAccordion() {
                 expandIcon={elements[i] ? <RemoveIcon /> : <AddIcon />}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
+                // style={{paddingLeft:'0px',marginLeft:'0px',display:'flex',flexDirection:'row', justifyContent:'flex-start'}}
               >
-                <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                <Typography sx={{ width: '100%',marginLeft:'-20px',paddingLeft:'0px' }}>
                   Namaz me Kitne Farz Hai?
                 </Typography>
                 {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
               </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
+              <AccordionDetails sx={{paddingLeft:'0px'}}>
+                <Typography sx={{marginLeft:'0px',paddingLeft:'0px'}}>
                  Namaz me 4 farz hai . muh dhona,haath dhona,masah karna aur pair dhona
                 </Typography>
               </AccordionDetails>
