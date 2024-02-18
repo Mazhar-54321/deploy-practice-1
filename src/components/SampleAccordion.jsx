@@ -40,7 +40,7 @@ export default function SampleAccordion() {
                 <Typography sx={{ width: '33%', flexShrink: 0 }}>
                   General settings
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>I am an accordion</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
