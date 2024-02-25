@@ -16,6 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
 import styled from '@emotion/styled';
+import SampleTextFields from './components/SampleTextFields';
 const drawerWidth = 300;
 const BACKGROUND_SELECTED = 'rgb(0,0,0,1)'
 const BACKGROUND_NULL = 'rgb(0,0,0,0)'
@@ -73,6 +74,24 @@ export default function SampleDrawer1() {
       </List>
     </Box>
   );
+  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: `-${drawerWidth}px`,
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+      }),
+    }),
+  );
   const theme = createTheme({
     palette: {
       primary: {
@@ -122,6 +141,7 @@ export default function SampleDrawer1() {
   const [anchorElMenu1, setAnchorElMenu1] = React.useState(null);
   const [level,setLevel] = React.useState('Level 1');
   const [level1,setLevel1] = React.useState('Roman');
+  const [element, setElement] = React.useState(<SampleTextFields />)
 
   const openMenu = Boolean(anchorElMenu);
   const openMenu1 = Boolean(anchorElMenu1);
@@ -281,7 +301,7 @@ export default function SampleDrawer1() {
             <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px' }}>
               {listData.map((text, index) => (
                 <ListItem sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} key={text} disablePadding>
-                  <ListItemButton onClick={toggleDrawer(anchor, false) }>
+                  <ListItemButton onClick={()=>{getLayout(index); toggleDrawer(anchor, false) }}>
                     {/* <ListItemIcon sx={{ color: text.background == BACKGROUND_NULL ? 'black' : 'white' }}>
                     </ListItemIcon> */}
                     <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100'}} primary={text.title} />
@@ -292,6 +312,13 @@ export default function SampleDrawer1() {
           </AccordionDetails>
         </Accordion>
           </SwipeableDrawer>
+          <Main open={open}>
+        <DrawerHeader />
+        {
+          element
+        }
+
+      </Main>
         </React.Fragment>
       ))}
     </div>
