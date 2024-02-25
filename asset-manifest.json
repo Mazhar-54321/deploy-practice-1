@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/deploy-practice-1/static/css/main.08106f30.css",
-    "main.js": "/deploy-practice-1/static/js/main.40198d4b.js",
+    "main.js": "/deploy-practice-1/static/js/main.bd658cb4.js",
     "static/js/206.66019059.chunk.js": "/deploy-practice-1/static/js/206.66019059.chunk.js",
     "static/media/logo.svg": "/deploy-practice-1/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/deploy-practice-1/index.html"
   },
   "entrypoints": [
     "static/css/main.08106f30.css",
-    "static/js/main.40198d4b.js"
+    "static/js/main.bd658cb4.js"
   ]
 }
