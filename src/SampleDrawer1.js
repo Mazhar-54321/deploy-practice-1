@@ -336,7 +336,7 @@ export default function SampleDrawer1() {
           </AccordionDetails>
         </Accordion>
           </SwipeableDrawer>
-          <Main open={open}>
+          <Main >
         <DrawerHeader />
         {
           element
