@@ -36,6 +36,7 @@ export default function SampleDrawer1() {
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
+    console.log(event)
     if (
       event &&
       event.type === 'keydown' &&
@@ -89,7 +90,6 @@ export default function SampleDrawer1() {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      marginLeft: `-${drawerWidth}px`,
       ...(open && {
         transition: theme.transitions.create('margin', {
           easing: theme.transitions.easing.easeOut,
@@ -171,7 +171,7 @@ export default function SampleDrawer1() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const getLayout = (value) => {
+ 
     const getLayout = (value) => {
       console.log(value)
       let oldArray = [...listData]
@@ -204,7 +204,7 @@ export default function SampleDrawer1() {
       }
     }
     
-  }
+  
   const handleMobileMenuOpen = (event) => {
     console.log(event.currentTarget);
     setMobileMoreAnchorEl(event.currentTarget);
@@ -218,7 +218,8 @@ export default function SampleDrawer1() {
     justifyContent: 'flex-end',
   }));
   return (
-    <div>
+    <Box sx={{ display: 'flex' }}>
+    
       {['left', 'right', 'top', 'bottom'].map((anchor) => (
         <React.Fragment key={anchor}>
           <AppBar position="fixed" style={{background:"#000000",color:"#ffffff"}} open={open}>
@@ -263,6 +264,7 @@ export default function SampleDrawer1() {
           </div>
         </Toolbar>
       </AppBar>
+      
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}
@@ -325,7 +327,7 @@ export default function SampleDrawer1() {
             <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px' }}>
               {listData.map((text, index) => (
                 <ListItem sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} key={text} disablePadding>
-                  <ListItemButton onClick={()=>{getLayout(index); toggleDrawer(anchor, false) }}>
+                  <ListItemButton onClick={()=>{setState({ ...state, [anchor]: false });getLayout(index); }}>
                     {/* <ListItemIcon sx={{ color: text.background == BACKGROUND_NULL ? 'black' : 'white' }}>
                     </ListItemIcon> */}
                     <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100'}} primary={text.title} />
@@ -336,15 +338,17 @@ export default function SampleDrawer1() {
           </AccordionDetails>
         </Accordion>
           </SwipeableDrawer>
-          <Main >
+          
+        </React.Fragment>
+        
+      ))}
+      <Main >
         <DrawerHeader />
         {
           element
         }
 
       </Main>
-        </React.Fragment>
-      ))}
-    </div>
+    </Box>
   );
 }
