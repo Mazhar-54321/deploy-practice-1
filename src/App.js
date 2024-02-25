@@ -23,7 +23,7 @@ function App() {
     <div className="App">
       
       <ThemeProvider theme={theme}>
-         <SampleDrawer1 /> 
+         <SampleDrawer /> 
         
       
       </ThemeProvider>
