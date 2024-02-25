@@ -38,13 +38,13 @@ export default function SampleAccordion() {
                 id="panel1bh-header"
                 // style={{paddingLeft:'0px',marginLeft:'0px',display:'flex',flexDirection:'row', justifyContent:'flex-start'}}
               >
-                <Typography sx={{ width: '100%',marginLeft:'-20px',paddingLeft:'0px',fontWeight:'bold' }}>
+                <Typography sx={{ width: '100%',marginLeft:'-20px',paddingLeft:'0px',fontWeight:'bold',fontSize:'18px' }}>
                   Namaz me Kitne Farz Hai?
                 </Typography>
                 {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
               </AccordionSummary>
               <AccordionDetails sx={{paddingLeft:'0px'}}>
-                <Typography sx={{marginLeft:'0px',paddingLeft:'0px'}}>
+                <Typography sx={{marginLeft:'5px',padding:'0px',fontSize:'12px'}}>
                  Namaz me 4 farz hai . muh dhona,haath dhona,masah karna aur pair dhona
                 </Typography>
               </AccordionDetails>

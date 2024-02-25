@@ -3,6 +3,7 @@ import './App.css';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import SampleDrawer from './SampleDrawer';
+import SampleDrawer1 from './SampleDrawer1';
 
 
 const theme = createTheme({
@@ -22,7 +23,7 @@ function App() {
     <div className="App">
       
       <ThemeProvider theme={theme}>
-         <SampleDrawer /> 
+         <SampleDrawer1 /> 
         
       
       </ThemeProvider>

@@ -1,88 +1,78 @@
-/* eslint-disable default-case */
-/* eslint-disable react/jsx-no-undef */
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-
-import AccountCircle from '@mui/icons-material/AccountCircle';
-
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import { Accordion, AccordionDetails, AccordionSummary, AppBar, IconButton, Menu, MenuItem, Toolbar, Typography, createTheme } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
-
-import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, Menu, MenuItem, createTheme } from '@mui/material';
-import SampleAutocomplete from './components/SampleAutocomplete';
-import SampleTextFields from './components/SampleTextFields';
-import SampleAccordion from './components/SampleAccordion';
-import SampleAvatars from './components/SampleAvatars';
-import SampleButtons from './components/SampleButtons';
-import SampleList from './components/SampleList';
-import SampleAlert from './components/SampleFeedbacks';
-import SampleLoaders from './components/SampleLoaders';
-import SampleMenu from './components/SampleMenu';
-import SamplePagination from './components/SamplePagination';
-import SampleTable from './components/SampleTable';
-import VerticalLinearStepper from './components/SampleStepper';
-
+import styled from '@emotion/styled';
 const drawerWidth = 300;
 const BACKGROUND_SELECTED = 'rgb(0,0,0,1)'
 const BACKGROUND_NULL = 'rgb(0,0,0,0)'
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
+export default function SampleDrawer1() {
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
+    setState({ ...state, [anchor]: open });
+  };
 
-export default function SampleDrawer() {
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
   const theme = createTheme({
     palette: {
       primary: {
@@ -115,7 +105,6 @@ export default function SampleDrawer() {
   const [appbarText, setAppbarText] = React.useState('Test Mode')
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
-  const [element, setElement] = React.useState(<SampleTextFields />)
   const [value, setValue] = React.useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const handleDrawerOpen = () => {
@@ -170,34 +159,30 @@ export default function SampleDrawer() {
     )
     setListData(oldArray)
     setLevel('Level1');
-    switch (value) {
-      case 0: setAppbarText('Namaz'); setElement(<SampleAccordion />); break;
-      case 1: setAppbarText('Roza'); setElement(<SampleAutocomplete />); break;
-      case 2: setAppbarText('Hujj'); setElement(<SampleAvatars />); break;
-      case 3: setAppbarText('Zakat'); setElement(<SampleButtons />); break;
-      case 4: setAppbarText('Sample Alerts'); setElement(<SampleAlert />); break;
-      case 5: setAppbarText('Sample List'); setElement(<SampleList />); break;
-      case 6: setAppbarText('Sample Loaders'); setElement(<SampleLoaders />); break;
-      case 7: setAppbarText('Sample Menu'); setElement(<SampleMenu />); break;
-      case 8: setAppbarText('Sample Pagination'); setElement(<SamplePagination />); break;
-      case 9: setAppbarText('Sample Rating'); setElement(<SampleRatings />); break;
-      case 10: setAppbarText('Sample Stepper'); setElement(<VerticalLinearStepper />); break;
-      case 11: setAppbarText('Sample Accordion'); setElement(<SampleTable />); break;
-      case 12: setAppbarText('Sample Text'); setElement(<SampleTextFields />)
-    }
+    
   }
   const handleMobileMenuOpen = (event) => {
     console.log(event.currentTarget);
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  }));
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" style={{background:"#000000",color:"#ffffff"}} open={open}>
-        <Toolbar >
+    <div>
+      {['left', 'right', 'top', 'bottom'].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <AppBar position="fixed" style={{background:"#000000",color:"#ffffff"}} open={open}>
+        <Toolbar  style={{display:'flex',flexDirection:'row-reverse'}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={toggleDrawer('right', true)}
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
@@ -206,7 +191,7 @@ export default function SampleDrawer() {
           <Typography variant="h6" style={{width:'120px'}} noWrap component="div">
             {appbarText}
           </Typography>
-          <div style={{display:'flex',width:'100%',justifyContent:'flex-end'}}>
+          <div style={{display:'flex',flexDirection:'row-reverse', width:'100%',justifyContent:'flex-end'}}>
           <Button
         id="basic-button"
         aria-controls={openMenu ? 'basic-menu' : undefined}
@@ -234,21 +219,13 @@ export default function SampleDrawer() {
           </div>
         </Toolbar>
       </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          height:'500px',
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader style={{background:'#000000',color:'#ffffff'}} >
+          <SwipeableDrawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+            onOpen={toggleDrawer(anchor, true)}
+          >
+           <DrawerHeader style={{background:'#000000',color:'#ffffff'}} >
         <div style={{width:'100%',background:'#000000',color:'#ffffff', display:'flex',alignItems:'start', justifyContent:'space-between'}}>
           <div style={{marginTop:'5px'}}><span style={{ width:'50%',padding:'2px 5px 2px 5px', border:'1px solid #ffffff'}}>Guest</span>
           <Button
@@ -276,7 +253,7 @@ export default function SampleDrawer() {
         <MenuItem onClick={()=>handleClose1('Urdu')}>Urdu</MenuItem>
       </Menu>
       </div>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={toggleDrawer(anchor, false)}>
             {theme.direction === 'ltr' ? <WestOutlinedIcon style={{color:'#ffffff'}} /> : <EastOutlinedIcon style={{color:'#000000'}}/>}
           </IconButton>
         </div>
@@ -304,7 +281,7 @@ export default function SampleDrawer() {
             <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px' }}>
               {listData.map((text, index) => (
                 <ListItem sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} key={text} disablePadding>
-                  <ListItemButton onClick={() => { setValue(index); getLayout(index); handleDrawerClose() }}>
+                  <ListItemButton onClick={toggleDrawer(anchor, false) }>
                     {/* <ListItemIcon sx={{ color: text.background == BACKGROUND_NULL ? 'black' : 'white' }}>
                     </ListItemIcon> */}
                     <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100'}} primary={text.title} />
@@ -314,18 +291,9 @@ export default function SampleDrawer() {
             </List>
           </AccordionDetails>
         </Accordion>
-        
-        
-        
-        
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        {
-          element
-        }
-
-      </Main>
-    </Box>
+          </SwipeableDrawer>
+        </React.Fragment>
+      ))}
+    </div>
   );
 }
