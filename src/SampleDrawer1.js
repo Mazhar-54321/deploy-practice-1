@@ -274,7 +274,7 @@ export default function SampleDrawer1() {
             id="panel1bh-header"
           >
             <Typography sx={{ width: '100%',fontWeight:'bold',fontSize:'18px', textAlign:'left', flexShrink: 0 }}>
-              Aamal
+              Aamal E Saleha
             </Typography>
           </AccordionSummary>
           <AccordionDetails style={{ padding: '0px 0px 0px 0px' }}>
