@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -17,6 +18,12 @@ import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
 import styled from '@emotion/styled';
 import SampleTextFields from './components/SampleTextFields';
+import SampleAlert from './components/SampleFeedbacks';
+import SampleList from './components/SampleList';
+import SampleAccordion from './components/SampleAccordion';
+import SampleAutocomplete from './components/SampleAutocomplete';
+import SampleAvatars from './components/SampleAvatars';
+import SampleButtons from './components/SampleButtons';
 const drawerWidth = 300;
 const BACKGROUND_SELECTED = 'rgb(0,0,0,1)'
 const BACKGROUND_NULL = 'rgb(0,0,0,0)'
@@ -165,20 +172,37 @@ export default function SampleDrawer1() {
     setOpen(false);
   };
   const getLayout = (value) => {
-    console.log(value)
-    let oldArray = [...listData]
-    oldArray = oldArray.map((e, i) => {
-      if (i == value) {
-        e.background = BACKGROUND_SELECTED
-      } else {
-        e.background = BACKGROUND_NULL
+    const getLayout = (value) => {
+      console.log(value)
+      let oldArray = [...listData]
+      oldArray = oldArray.map((e, i) => {
+        if (i == value) {
+          e.background = BACKGROUND_SELECTED
+        } else {
+          e.background = BACKGROUND_NULL
+        }
+        return e
+  
       }
-      return e
-
+      )
+      setListData(oldArray)
+      setLevel('Level1');
+      switch (value) {
+        case 0: setAppbarText('Namaz'); setElement(<SampleAccordion />); break;
+        case 1: setAppbarText('Roza'); setElement(<SampleAutocomplete />); break;
+        case 2: setAppbarText('Hujj'); setElement(<SampleAvatars />); break;
+        case 3: setAppbarText('Zakat'); setElement(<SampleButtons />); break;
+        // case 4: setAppbarText('Sample Alerts'); setElement(<SampleAlert />); break;
+        // case 5: setAppbarText('Sample List'); setElement(<SampleList />); break;
+        // case 6: setAppbarText('Sample Loaders'); setElement(<SampleLoaders />); break;
+        // case 7: setAppbarText('Sample Menu'); setElement(<SampleMenu />); break;
+        // case 8: setAppbarText('Sample Pagination'); setElement(<SamplePagination />); break;
+        // case 9: setAppbarText('Sample Rating'); setElement(<SampleRatings />); break;
+        // case 10: setAppbarText('Sample Stepper'); setElement(<VerticalLinearStepper />); break;
+        // case 11: setAppbarText('Sample Accordion'); setElement(<SampleTable />); break;
+        // case 12: setAppbarText('Sample Text'); setElement(<SampleTextFields />)
+      }
     }
-    )
-    setListData(oldArray)
-    setLevel('Level1');
     
   }
   const handleMobileMenuOpen = (event) => {
