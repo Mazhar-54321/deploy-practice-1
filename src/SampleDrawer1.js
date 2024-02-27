@@ -60,6 +60,12 @@ const SampleDrawer1 = () => {
         Urdu:"نماز میں کتنے فرض ہیں؟",
         urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
         answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
       }],
       Level2:[{
         question:"Namaz me Kitne Farz hai?",
@@ -94,9 +100,7 @@ const SampleDrawer1 = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElTwo, setAnchorElTwo] = useState(null);
   const toggleDrawer = (open,list) => (event) => {
-    console.log(list);
    if(list===1){
-    console.log('llll')
     setOpenDrawer(open);
    }
     if (
@@ -122,17 +126,17 @@ const SampleDrawer1 = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const [appbarText, setAppbarText] = React.useState('Test Mode')
+  const [language,setLanguage] = React.useState(true);
+  const [appbarText, setAppbarText] = React.useState(language?'Intro':'تعارف')
   const [level,setLevel] = React.useState('Level1');
   const [level1,setLevel1] = React.useState('Roman');
-  const [language,setLanguage] = React.useState(true);
+  
 
   useEffect(()=>{
    getAppBarText(value);
   },[language]);
   
   const handleClose1 = (value1) => {
-  console.log(value1);
   
   if(value1==='Urdu'){
     if(language){
@@ -211,13 +215,12 @@ const SampleDrawer1 = () => {
     }
   }
   const getAppBarText =(value)=>{
-    console.log('alll',value,language);
     switch (value) {
       case 0: setAppbarText(language?'Namaz':'نماز'); break;
       case 1: setAppbarText(language?'Roza':"روزہ"); ; break;
       case 2: setAppbarText(language?'Hujj':"حج" ); ; break;
       case 3: setAppbarText(language?'Zakat':"زکات"); ; break;
-      
+      default :  setAppbarText(language?'Intro':'تعارف');
     }
   }
   const getTopicName = (value)=>{
@@ -353,7 +356,10 @@ const SampleDrawer1 = () => {
           <AccordionDetails style={{ padding: '0px 0px 0px 0px' }}>
             <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px',flexDirection:'row-reverse' }}>
               {listData.map((text, index) => (
-                <ListItem sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} key={text} disablePadding>
+                <ListItem 
+                sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} 
+                key={text+','+index} 
+                disablePadding>
                   <ListItemButton onClick={() => {setOpenDrawer(false); setValue(index); getLayout(index);  }}>
                    
                     <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100',textAlign:language?'left':'right'}} primary={language?text.title:text.urduTitle} />
@@ -368,7 +374,8 @@ const SampleDrawer1 = () => {
       <Main open={open}>
         <DrawerHeader />
         {
-          <SampleAccordion accordionData={accordionData?.[getTopicName(value)]?.[level] || []} language={language} />
+         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion accordionData={accordionData?.[getTopicName(value)]?.[level] || []} language={language} />:
+        <Typography style={{textAlign:language?'left':'right'}}>{language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}</Typography>
         }
 
       </Main>

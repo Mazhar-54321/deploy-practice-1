@@ -156,7 +156,6 @@ export default function SampleDrawer() {
     setOpen(false);
   };
   const getLayout = (value) => {
-    console.log(value)
     let oldArray = [...listData]
     oldArray = oldArray.map((e, i) => {
       if (i == value) {
@@ -187,7 +186,6 @@ export default function SampleDrawer() {
     }
   }
   const handleMobileMenuOpen = (event) => {
-    console.log(event.currentTarget);
     setMobileMoreAnchorEl(event.currentTarget);
   };
   return (
