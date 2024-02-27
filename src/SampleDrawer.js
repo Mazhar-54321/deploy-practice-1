@@ -235,17 +235,18 @@ export default function SampleDrawer() {
         </Toolbar>
       </AppBar>
       <Drawer
-        sx={{
-          width: drawerWidth,
-          height:'500px',
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
+      anchor='right'
+        // sx={{
+        //   width: drawerWidth,
+        //   height:'500px',
+        //   // flexShrink: 0,
+        //   // '& .MuiDrawer-paper': {
+        //   //   width: drawerWidth,
+        //   //   boxSizing: 'border-box',
+        //   // },
+        // }}
+        // variant="persistent"
+        
         open={open}
       >
         <DrawerHeader style={{background:'#000000',color:'#ffffff'}} >
@@ -305,8 +306,7 @@ export default function SampleDrawer() {
               {listData.map((text, index) => (
                 <ListItem sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} key={text} disablePadding>
                   <ListItemButton onClick={() => { setValue(index); getLayout(index); handleDrawerClose() }}>
-                    {/* <ListItemIcon sx={{ color: text.background == BACKGROUND_NULL ? 'black' : 'white' }}>
-                    </ListItemIcon> */}
+                   
                     <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100'}} primary={text.title} />
                   </ListItemButton>
                 </ListItem>
@@ -319,13 +319,13 @@ export default function SampleDrawer() {
         
         
       </Drawer>
-      <Main open={open}>
+      {/* <Main open={open}>
         <DrawerHeader />
         {
           element
         }
 
-      </Main>
+      </Main> */}
     </Box>
   );
 }
