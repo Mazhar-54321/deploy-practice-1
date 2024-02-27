@@ -165,19 +165,23 @@ const SampleDrawer1 = () => {
   });
   const [listData, setListData] = React.useState([{
     title: 'Namaz',
+    urduTitle:'نماز',
     background: BACKGROUND_NULL
   },
   {
     title: 'Roza',
+    urduTitle:"روزہ",
     background: BACKGROUND_NULL
   },
 
   {
     title: 'Hujj',
+    urduTitle:"حج",
     background: BACKGROUND_NULL
   },
   {
     title: 'Zakat',
+    urduTitle:"زکات",
     background: BACKGROUND_NULL
   },
   ])
@@ -338,21 +342,21 @@ const SampleDrawer1 = () => {
               }}}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon style={{fontWeight:'bold',color:'#000000'}} />}
-            style={{ margin: '0px 0px -15px 0px' }}
+            sx={{flexDirection:!language?'row-reverse':'row'}}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Typography sx={{ width: '100%',fontWeight:'bold',fontSize:'18px', textAlign:'left', flexShrink: 0 }}>
-              Aamal
+            <Typography sx={{ width: '100%',textAlign:!language?'right':'left',fontWeight:'bold',fontSize:'18px', flexShrink: 0 }}>
+              {language?'Aamal':'اعمال'}
             </Typography>
           </AccordionSummary>
           <AccordionDetails style={{ padding: '0px 0px 0px 0px' }}>
-            <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px' }}>
+            <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px',flexDirection:'row-reverse' }}>
               {listData.map((text, index) => (
                 <ListItem sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} key={text} disablePadding>
                   <ListItemButton onClick={() => {setOpenDrawer(false); setValue(index); getLayout(index);  }}>
                    
-                    <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100'}} primary={text.title} />
+                    <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100',textAlign:language?'left':'right'}} primary={language?text.title:text.urduTitle} />
                   </ListItemButton>
                 </ListItem>
               ))}
