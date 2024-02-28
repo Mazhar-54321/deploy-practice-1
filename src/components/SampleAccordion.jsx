@@ -7,14 +7,17 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-export default function SampleAccordion({language,accordionData}) {
-  const [expanded, setExpanded] = React.useState(-1);
-  const [elements, setElements] = React.useState([false])
+export default function SampleAccordion({language,accordionData,index,setIndex}) {
+  const [expanded, setExpanded] = React.useState(index);
+  const [elements, setElements] = React.useState([false]);
+  console.log(index);
   const handleChange = (panel) => (event, isExpanded) => {
-    if(panel===expanded){
+    if(panel===index){
       setExpanded(-1);
+      setIndex(-1);
     }else{
     setExpanded(panel);
+    setIndex(panel);
     }
     let newElements = [...elements]
     newElements[panel] = !newElements[panel]
@@ -36,10 +39,10 @@ export default function SampleAccordion({language,accordionData}) {
               '&:before': {
                   display: 'none',
               }
-          }} expanded={i===expanded} onChange={handleChange(i)}>
+          }} expanded={i===index} onChange={handleChange(i)}>
               <AccordionSummary
                sx={{flexDirection:!language?'row-reverse':'row'}}
-                expandIcon={i===expanded ? <RemoveIcon sx={{color:'#000000'}} /> : <AddIcon sx={{color:'#000000'}}/>}
+                expandIcon={i===index ? <RemoveIcon sx={{color:'#000000'}} /> : <AddIcon sx={{color:'#000000'}}/>}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
                 // style={{paddingLeft:'0px',marginLeft:'0px',display:'flex',flexDirection:'row', justifyContent:'flex-start'}}

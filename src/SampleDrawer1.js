@@ -57,46 +57,46 @@ const SampleDrawer1 = () => {
   const [accordionData]= React.useState({
      Namaz : {
       Level1:[{
-        question:"Namaz me Kitne Farz hai?",
+        question:"1)Namaz me Kitne Farz hai?",
         Urdu:"نماز میں کتنے فرض ہیں؟",
         urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
         answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
       },
       {
-        question:"Namaz kis par Farz hai?",
+        question:"2)Namaz kis par Farz hai?",
         Urdu:"نماز کس پر فرض ہے؟",
         urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
         answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
       },{
-        question:"Namaz me Kitne Farz hai?",
+        question:"3)Namaz me Kitne Farz hai?",
         Urdu:"نماز میں کتنے فرض ہیں؟",
         urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
         answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
       },
       {
-        question:"Namaz kis par Farz hai?",
+        question:"4)Namaz kis par Farz hai?",
         Urdu:"نماز کس پر فرض ہے؟",
         urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
         answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
       },{
-        question:"Namaz me Kitne Farz hai?",
+        question:"5)Namaz me Kitne Farz hai?",
         Urdu:"نماز میں کتنے فرض ہیں؟",
         urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
         answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
       },
       {
-        question:"Namaz kis par Farz hai?",
+        question:"6)Namaz kis par Farz hai?",
         Urdu:"نماز کس پر فرض ہے؟",
         urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
         answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
       },{
-        question:"Namaz me Kitne Farz hai?",
+        question:"7)Namaz me Kitne Farz hai?",
         Urdu:"نماز میں کتنے فرض ہیں؟",
         urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
         answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
       },
       {
-        question:"Namaz kis par Farz hai?",
+        question:"8)Namaz kis par Farz hai?",
         Urdu:"نماز کس پر فرض ہے؟",
         urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
         answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
@@ -242,6 +242,7 @@ const SampleDrawer1 = () => {
   })
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(8);
+  const [index,setIndex] = React.useState(-1);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -296,11 +297,15 @@ const SampleDrawer1 = () => {
   if(value1==='Urdu'){
     if(language){
       setOpenDrawer(false);
+      setPage(0);
+      setIndex(-1);
     }
     setLanguage(false);
   }else{
   if(!language){
   setOpenDrawer(false);
+  setPage(0);
+  setIndex(-1);
   }
     setLanguage(true)
   }
@@ -480,14 +485,11 @@ const SampleDrawer1 = () => {
             }}
           >
              <MenuItem onClick={()=>{handleClose1('Roman');;handleMenuClose()}}>Roman</MenuItem>
-        <MenuItem onClick={()=>{handleClose1('English');;handleMenuClose()}}>English</MenuItem>
         <MenuItem onClick={()=>{handleClose1('Urdu');;handleMenuClose()}}>Urdu</MenuItem>
           </Menu>
       
       </div>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <WestOutlinedIcon style={{color:'#ffffff'}} /> : <EastOutlinedIcon style={{color:'#000000'}}/>}
-          </IconButton>
+          
         </div>
          
         </DrawerHeader>
@@ -536,11 +538,11 @@ const SampleDrawer1 = () => {
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{'.MuiTablePagination-selectLabel':{display:'none'},'.css-16c50h-MuiInputBase-root-MuiTablePagination-select':{display:'none'}}}
+        sx={{'.MuiTablePagination-selectLabel':{display:'none'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none'}}}
       />
               }
         {
-         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} />:
+         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} />:
         <Typography style={{textAlign:language?'left':'right'}}>{language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}</Typography>
         }
 
