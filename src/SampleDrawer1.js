@@ -91,8 +91,8 @@ const SampleDrawer1 = () => {
         answer:"Jamat wajib hai"
       },
       {
-        question:"Imamat ka sab se zyada haqdar kaun hai",
-        Urdu:"نماز کس پر فرض ہے؟",
+        question:"Imamat ka sab se zyada haqdar kaun hai?",
+        Urdu:"امامت کا سب سے زیادہ حقدار کون ہے؟",
         urduAnswer:"امامت کا سب سے زیادہ حقدار وہ ہے جو نماز اور طہارت کے احکام سب سے زیادہ جانتا ہو۔ وہ شخص جو تجوید کا علم زیادہ جانتا ہو۔ پھر جو سب سے زیادہ متقی ہو۔",
         answer:"Imamat ka sabse zyada haqdar wo hai jo namaz aur taharat ke ahkam sabse zyada janta ho . wo shaqs jo tajweed ka ilm zyada janta ho. phir jo sab se zyada mutaqqi ho."
       },{
