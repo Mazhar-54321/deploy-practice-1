@@ -52,8 +52,8 @@ export default function SampleAccordion({language,accordionData,index,setIndex})
                 </Typography>
                 {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
               </AccordionSummary>
-              <AccordionDetails sx={{textAlign:!language?'right':'left', paddingLeft:'0px'}}>
-                <Typography sx={{marginLeft:'5px',padding:'0px',fontSize:'12px'}}>
+              <AccordionDetails sx={{textAlign:!language?'right':'left', paddingLeft:'10px'}}>
+                <Typography sx={{marginLeft:'5px',padding:'10px',fontSize:'12px'}}>
                 {language?element?.answer:element?.urduAnswer}
                 </Typography>
               </AccordionDetails>
