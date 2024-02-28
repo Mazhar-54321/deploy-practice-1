@@ -66,6 +66,72 @@ const SampleDrawer1 = () => {
         Urdu:"نماز کس پر فرض ہے؟",
         urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
         answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
       }],
       Level2:[{
         question:"Namaz me Kitne Farz hai?",
