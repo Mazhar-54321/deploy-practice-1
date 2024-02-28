@@ -57,38 +57,44 @@ const SampleDrawer1 = () => {
   const [accordionData]= React.useState({
      Namaz : {
       Level1:[{
-        question:"1)Namaz me Kitne Farz hai?",
-        Urdu:"نماز میں کتنے فرض ہیں؟",
-        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
-        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+        question:"Namaz ki shartey kitni hai?",
+        Urdu:"نماز کی شرائط کتنی ہیں؟",
+        urduAnswer:`نماز کی ٦ شرائط ہیں۔ \n١) طہارت (بدن، کپڑے اور جگہ کا پاک ہونا) \n٢) سترِ عورت یعنی مرد کو ناف سے گھٹنوں تک چھپانا \n٣) قبلہ کی طرف منہ کرنا \n٤) وقت \n٥) نیت \n٦) تکبیر تحریمہ
+        `,
+        answer:`Namaz ki 6 shartey hai.\n1)Taharat(Badan,Kapdey aur jagah ka paak hona)\n2)Sitr e aurat yani mard ko naaf se ghutno tak chupana \n3)Qibla ki taraf muh karna \n4)Waqt \n5)Niyyat
+        \n6)Takbeer e Tehreema`
       },
       {
-        question:"2)Namaz kis par Farz hai?",
-        Urdu:"نماز کس پر فرض ہے؟",
-        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
-        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+        question:"Namaz me kitni cheeze Farz hai?",
+        Urdu:`نماز میں کِتنی چیزیں فرض ہیں؟`,
+        urduAnswer:`نماز میں ٦ چیزیں فرض ہیں: \n١) قیام \n٢) قراءت \n٣) رکوع \n٤) سجدہ \n٥) قعدہ آخرہ \n٦) خروج
+        `,
+        answer:"Namaz me 6 cheeze farz hai. \n 1)Qayam \n 2)Qiraat \n 3)ruku \n4)Sajda\n5)Qayda Aakhira\n6)Khurroj"
       },{
-        question:"3)Namaz me Kitne Farz hai?",
-        Urdu:"نماز میں کتنے فرض ہیں؟",
-        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
-        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+        question:"Namaz me Kitne Wajibat hai?",
+        Urdu:"نماز میں کتنی واجبات ہیں؟",
+        urduAnswer:`نماز میں ١٤ واجبات ہیں \n١) تکبیر تحریمہ میں اللہ اکبر کہنا \n٢) الحمد شریف پڑھنا \n٣) فرض کی پہلی ٢ رکعتوں میں اور (سنت، نفل اور وتر) کی ہر رکعت میں الحمد شریف کے ساتھ دوسری سورت بھی پڑھنا \n٤) فرض نماز کی پہلی ٢ رکعتوں میں قراءت کے بعد متسلسل رکوع کرنا \n٥) سجدہ میں دونوں پاؤں کی ٣-٣ انگلیوں کا پیٹ زمین سے لگانا \n٦) دونوں سجدوں کے درمیان کوئی رکن فاصل نہ ہونا \n٧) تدلیل ارکان \n٨) قیامہ یعنی رکوع سے سیدھا کھڑا ہونا \n٩) جلسہ یعنی دونوں سجدوں کے درمیان سیدھا بیٹھنا \n١٠) قعدہ اولہ میں تشہد کے دوران کچھ نہ پڑھنا \n١١) ہر قعدے میں پورا تشہد پڑھنا \n١٢) لفظ سلام دو بار کہنا \n١٣) وتر میں دعا خنوت پڑھنا \n١٤) رکوع کا ہر رکعت میں ایک بار ہونا اور سجدوں کا دو ہی بار ہونا۔`,
+        answer:`Namaz me 14 wajib hai \n1)Takbeer e Tehreema me Allahu Akbar Kehna \n2)Alhand Shareef Padhna \n3)Farz ki pehli 2 rakato me aur (sunnat,nafl aur witr) ki har rakaat me Alhamd Shareef ke Saath dusri surat bhi padhna \n
+        4)Farz namaz ki pehli 2 rakato me qirat ke baad mutasalan ruku karna \n5) Sajda me dono pao ki 3-3 ungliyo ka pait zameen se lagana \n 6)Dono sajdo ke darmiyan koi rukun fasil na hona\n7)
+        7)Taddel e arkan \n8)Qauma yani ruku se seedha khada hona \n9)jalsa yani dono sajdo ke darmiyan seedha baithna \n10) Qayda oola me tashahud ke dauran kuch na padhna \n 11)har qaida me pura tashahud padhna \n
+        12)Lafz salam 2 baar kehna \n 13)Witr me dua e khunoot padha \n 14)Ruku ka har rakat me ek hi bar hona aur sajdo ka 2 hi bar hona `
       },
       {
-        question:"4)Namaz kis par Farz hai?",
-        Urdu:"نماز کس پر فرض ہے؟",
-        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
-        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+        question:"Agar surah fatiha ke baad surah padhan bhul jaye to kya karey?",
+        Urdu:"اگر سورۃ فاتحہ کے بعد سورۃ پڑھنے بھول جائے تو کیا کریں؟",
+        urduAnswer:"اگر رکوع میں یاد آئے تو کھڑا ہو جائے اور سورۃ ملائے، پھر رکوع کرے اور آخر میں سجدہ سہو کرے۔",
+        answer:"Agar ruku me yaad aaye to khada ho jaye aur surat milaye phir ruku karey aur aakhir me sajda sahu karey"
       },{
-        question:"5)Namaz me Kitne Farz hai?",
-        Urdu:"نماز میں کتنے فرض ہیں؟",
-        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
-        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+        question:"Jamat farz hai ya wajib?",
+        Urdu:"جماعت فرض ہے یا واجب؟",
+        urduAnswer:"جماعت واجب ہے۔",
+        answer:"Jamat wajib hai"
       },
       {
-        question:"6)Namaz kis par Farz hai?",
+        question:"Imamat ka sab se zyada haqdar kaun hai",
         Urdu:"نماز کس پر فرض ہے؟",
-        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
-        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+        urduAnswer:"امامت کا سب سے زیادہ حقدار وہ ہے جو نماز اور طہارت کے احکام سب سے زیادہ جانتا ہو۔ وہ شخص جو تجوید کا علم زیادہ جانتا ہو۔ پھر جو سب سے زیادہ متقی ہو۔",
+        answer:"Imamat ka sabse zyada haqdar wo hai jo namaz aur taharat ke ahkam sabse zyada janta ho . wo shaqs jo tajweed ka ilm zyada janta ho. phir jo sab se zyada mutaqqi ho."
       },{
         question:"7)Namaz me Kitne Farz hai?",
         Urdu:"نماز میں کتنے فرض ہیں؟",
