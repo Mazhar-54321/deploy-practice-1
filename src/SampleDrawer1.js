@@ -9,11 +9,12 @@ import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Pagination from '@mui/material/Pagination';
 
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import TablePagination from '@mui/material/TablePagination';
 
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
@@ -132,6 +133,83 @@ const SampleDrawer1 = () => {
         Urdu:"نماز کس پر فرض ہے؟",
         urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
         answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
+      },{
+        question:"Namaz me Kitne Farz hai?",
+        Urdu:"نماز میں کتنے فرض ہیں؟",
+        urduAnswer:"قیام کرنا، رکوع کرنا، قعود کرنا، سجدہ کرنا",
+        answer:"Qayam karna , ruku karna , qauma karna,sajda karna"
+      },
+      {
+        question:"Namaz kis par Farz hai?",
+        Urdu:"نماز کس پر فرض ہے؟",
+        urduAnswer:"نماز ہر مسلمان آقل اور بالغ پر فرض ہے",
+        answer:"Namaz har musalman Aaqil aur Baligh par farz hai"
       }],
       Level2:[{
         question:"Namaz me Kitne Farz hai?",
@@ -162,6 +240,17 @@ const SampleDrawer1 = () => {
       Level3:[]
      }
   })
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(8);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   const [openDrawer, setOpenDrawer] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElTwo, setAnchorElTwo] = useState(null);
@@ -439,8 +528,19 @@ const SampleDrawer1 = () => {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
+        {( appbarText!=='Intro' && appbarText!=='تعارف')&&
+        <TablePagination
+        component="div"
+        count={Math.round(accordionData?.[getTopicName(value)]?.[level].length)}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        sx={{'.MuiTablePagination-selectLabel':{display:'none'},'.css-16c50h-MuiInputBase-root-MuiTablePagination-select':{display:'none'}}}
+      />
+              }
         {
-         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion accordionData={accordionData?.[getTopicName(value)]?.[level] || []} language={language} />:
+         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} />:
         <Typography style={{textAlign:language?'left':'right'}}>{language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}</Typography>
         }
 
