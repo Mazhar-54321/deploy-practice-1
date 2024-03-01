@@ -141,6 +141,7 @@ const SampleDrawer1 = () => {
       Level3:[]
      }
   })
+  const [start,setStart] = React.useState(1);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(8);
   const [index,setIndex] = React.useState(-1);
@@ -293,7 +294,14 @@ const SampleDrawer1 = () => {
       
     }
   }
-  
+  const getLabelText =(from,to,count)=>{
+    setStart(from);
+    if(from!==to){
+      return `Q${from}) to Q${to}) of ${count}`
+    }else{
+      return `last Question of ${count}`
+    }
+  }
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -442,10 +450,11 @@ const SampleDrawer1 = () => {
         onRowsPerPageChange={handleChangeRowsPerPage}
         sx={{'.MuiTablePagination-selectLabel':{marginRight:'5px'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none'}}}
         labelRowsPerPage='Showing'
+        labelDisplayedRows={({from,to,count})=>getLabelText(from,to,count)}
       />
               }
         {
-         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} />:
+         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion start={start} index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} />:
         <Typography style={{textAlign:language?'left':'right'}}>{language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}</Typography>
         }
 

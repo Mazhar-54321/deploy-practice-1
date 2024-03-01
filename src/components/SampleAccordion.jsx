@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-export default function SampleAccordion({language,accordionData,index,setIndex}) {
+export default function SampleAccordion({start,language,accordionData,index,setIndex}) {
   const [expanded, setExpanded] = React.useState(index);
   const [elements, setElements] = React.useState([false]);
   console.log(index);
@@ -29,7 +29,15 @@ export default function SampleAccordion({language,accordionData,index,setIndex})
       backgroundColor: 'transparent !important',
     },
   };
-  
+  const getQuestionLabel =(question,index)=>{
+    console.log(question,index);
+    if(language){
+      return `Q${start+index}) ${question}`
+    }else{
+      let ans=question
+      return ans
+    }
+  };
   return (
     <div style={{ display: 'flex', flexDirection:'column', rowGap: '5px' }}>
       {
@@ -48,8 +56,10 @@ export default function SampleAccordion({language,accordionData,index,setIndex})
                 // style={{paddingLeft:'0px',marginLeft:'0px',display:'flex',flexDirection:'row', justifyContent:'flex-start'}}
               >
                 <Typography sx={{width:'100%',textAlign:!language?'right':'left', paddingLeft:'0px',fontWeight:'900',fontSize:language?'14px':'14px' }}>
-                {language?element?.question:element?.Urdu}
+               { language? getQuestionLabel(element?.question,i):getQuestionLabel(element?.Urdu,i)}
+               
                 </Typography>
+                {/* {!language&&<span>({i+start}Q</span>} */}
                 {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
               </AccordionSummary>
               <AccordionDetails sx={{textAlign:!language?'right':'left', paddingLeft:'10px'}}>
