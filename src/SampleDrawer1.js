@@ -54,6 +54,107 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   }),
 );
 const SampleDrawer1 = () => {
+  const urduNumbers  = {
+    1: '۱',
+    2: '۲',
+    3: '۳',
+    4: '۴',
+    5: '۵',
+    6: '۶',
+    7: '۷',
+    8: '۸',
+    9: '۹',
+    10: '۱۰',
+    11: '۱۱',
+    12: '۱۲',
+    13: '۱۳',
+    14: '۱۴',
+    15: '۱۵',
+    16: '۱۶',
+    17: '۱۷',
+    18: '۱۸',
+    19: '۱۹',
+    20: '۲۰',
+    21: '۲۱',
+    22: '۲۲',
+    23: '۲۳',
+    24: '۲۴',
+    25: '۲۵',
+    26: '۲۶',
+    27: '۲۷',
+    28: '۲۸',
+    29: '۲۹',
+    30: '۳۰',
+    31: '۳۱',
+    32: '۳۲',
+    33: '۳۳',
+    34: '۳۴',
+    35: '۳۵',
+    36: '۳۶',
+    37: '۳۷',
+    38: '۳۸',
+    39: '۳۹',
+    40: '۴۰',
+    41: '۴۱',
+    42: '۴۲',
+    43: '۴۳',
+    44: '۴۴',
+    45: '۴۵',
+    46: '۴۶',
+    47: '۴۷',
+    48: '۴۸',
+    49: '۴۹',
+    50: '۵۰',
+    51: '۵۱',
+    52: '۵۲',
+    53: '۵۳',
+    54: '۵۴',
+    55: '۵۵',
+    56: '۵۶',
+    57: '۵۷',
+    58: '۵۸',
+    59: '۵۹',
+    60: '۶۰',
+    61: '۶۱',
+    62: '۶۲',
+    63: '۶۳',
+    64: '۶۴',
+    65: '۶۵',
+    66: '۶۶',
+    67: '۶۷',
+    68: '۶۸',
+    69: '۶۹',
+    70: '۷۰',
+    71: '۷۱',
+    72: '۷۲',
+    73: '۷۳',
+    74: '۷۴',
+    75: '۷۵',
+    76: '۷۶',
+    77: '۷۷',
+    78: '۷۸',
+    79: '۷۹',
+    80: '۸۰',
+    81: '۸۱',
+    82: '۸۲',
+    83: '۸۳',
+    84: '۸۴',
+    85: '۸۵',
+    86: '۸۶',
+    87: '۸۷',
+    88: '۸۸',
+    89: '۸۹',
+    90: '۹۰',
+    91: '۹۱',
+    92: '۹۲',
+    93: '۹۳',
+    94: '۹۴',
+    95: '۹۵',
+    96: '۹۶',
+    97: '۹۷',
+    98: '۹۸',
+  }
+  ;  
   const [accordionData]= React.useState({
      Namaz : {
       Level1:[{
@@ -302,6 +403,21 @@ const SampleDrawer1 = () => {
       return `last Question of ${count}`
     }
   }
+
+  const getLabelTextUrdu =(from,to,count)=>{
+    if(language){
+      getLabelTextUrdu(from,to,count);
+      
+    }else{
+    setStart(from);
+    if(from!==to){
+      return `${urduNumbers[to]})-${urduNumbers[from]}) میں سے ${urduNumbers[count]}کل`
+    }else{
+      let ans =` میں سے ${urduNumbers[count]}کل`
+      return ans+ `آخری سوال`;
+    }
+  }
+  };
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -332,7 +448,7 @@ const SampleDrawer1 = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" style={{width:'120px'}} noWrap component="div">
+          <Typography variant="h6" style={{width:'120px',fontWeight:'600'}} noWrap component="div">
             {appbarText}
           </Typography>
           <div style={{display:'flex',width:'100%',justifyContent:language?'flex-end':'flex-start'}}>
@@ -448,14 +564,14 @@ const SampleDrawer1 = () => {
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{'.MuiTablePagination-selectLabel':{marginRight:'5px'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none'}}}
+        sx={{'.MuiTablePagination-selectLabel':{marginRight:'-30px'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none',marginRight:'0px'}}}
         labelRowsPerPage='Showing'
         labelDisplayedRows={({from,to,count})=>getLabelText(from,to,count)}
       />
               }
         {
-         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion start={start} index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} />:
-        <Typography style={{textAlign:language?'left':'right'}}>{language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}</Typography>
+         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} />:
+        <Typography style={{textAlign:language?'left':'right',fontWeight:'600'}}>{language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}</Typography>
         }
 
       </Main>
