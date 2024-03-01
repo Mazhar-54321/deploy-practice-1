@@ -47,15 +47,15 @@ export default function SampleAccordion({language,accordionData,index,setIndex})
                 id="panel1bh-header"
                 // style={{paddingLeft:'0px',marginLeft:'0px',display:'flex',flexDirection:'row', justifyContent:'flex-start'}}
               >
-                <Typography sx={{width:'100%',textAlign:!language?'right':'left', paddingLeft:'0px',fontWeight:'900',fontSize:language?'14px':'18px' }}>
+                <Typography sx={{width:'100%',textAlign:!language?'right':'left', paddingLeft:'0px',fontWeight:'900',fontSize:language?'14px':'14px' }}>
                 {language?element?.question:element?.Urdu}
                 </Typography>
                 {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
               </AccordionSummary>
               <AccordionDetails sx={{textAlign:!language?'right':'left', paddingLeft:'10px'}}>
-                <Typography sx={{marginLeft:'5px',padding:'5px',fontSize:language?'12px':'14px',fontWeight:'400'}}>
+                <Typography sx={{marginLeft:'5px',padding:'5px',fontSize:language?'12px':'12px',fontWeight:'400'}}>
                 {/* {language?element?.answer.split('\n').map(e=><div key={e}>{e}</div>):element?.urduAnswer.split('\n').map(e=><div key={e}>{e}</div>)} */}
-                {language? element?.answer.split('\n').map(e=><div style={{fontWeight:'550'}} key={e}>{e}</div>) :element?.urduAnswer.split('\n').map(e=><div style={{font:'20px'}} key={e}>{e}</div>)}
+                {language? element?.answer.split('\n').map(e=><div style={{fontWeight:'550'}} key={e}>{e}</div>) :element?.urduAnswer.split('\n').map(e=><div style={{font:'20px',fontWeight:'550'}} key={e}>{e}</div>)}
                 </Typography>
               </AccordionDetails>
             </Accordion>
