@@ -106,6 +106,11 @@ const SampleDrawer1 = () => {
         Urdu:"اگر دعائے قنوت نہ پڑھی جائے تو اس کا حکم ہوگا کہ نماز درست ہوگی۔",
         urduAnswer:"اگر جان بوجھ کر نہ پڑھے تو وتر دوبارہ پڑھے اور بھول جائے تو سجدہ سہو کرے۔",
         answer:"Agar jaan bugh kar na padhe to witr dobara padhe aur bhool jaye to sajda sahu karey"
+      },{
+        question:"Din aur rat me kul kitni namazey farz hai?",
+        Urdu:"دن اور رات میں کُل کتنی نمازیں فرض ہیں؟",
+        urduAnswer:"دن وو رات میں کل پانچ نمازیں فرض ہیں۔\n١) فجر\n٢) ظہر\n٣) عصر\n٤) مغرب\n٥) عشاء۔",
+        answer:"Din wo raat me kul paanch namazey farz hai . \n1)fajr\n2)zuhr\n3)asr\n4)magrib\n5)isha"
       }],
       Level2:[{
         question:"Namaz me Kitne Farz hai?",
