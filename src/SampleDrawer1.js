@@ -427,6 +427,7 @@ const SampleDrawer1 = () => {
       <Main open={open}>
         <DrawerHeader />
         {( appbarText!=='Intro' && appbarText!=='تعارف')&&
+        accordionData?.[getTopicName(value)]?.[level].length>8&&
         <TablePagination
         component="div"
         count={Math.round(accordionData?.[getTopicName(value)]?.[level].length)}

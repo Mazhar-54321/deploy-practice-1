@@ -7,7 +7,6 @@ import SampleDrawer1 from './SampleDrawer1';
 import MainBu from './MainBu';
 import CustomAccordion from './CustomAccordion';
 
-
 const theme = createTheme({
   palette: {
     primary: {

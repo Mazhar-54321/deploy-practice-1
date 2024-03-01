@@ -1,5 +1,13 @@
+@font-face {
+  font-family: Geist;
+  src: url('./fonts/Amazon\ Ember.ttf');
+}
 .App {
   text-align: start;
+  
+}
+*{
+  font-family: Geist;
 }
 
 .App-logo {
