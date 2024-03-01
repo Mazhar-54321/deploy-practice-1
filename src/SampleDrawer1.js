@@ -440,7 +440,8 @@ const SampleDrawer1 = () => {
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{'.MuiTablePagination-selectLabel':{display:'none'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none'}}}
+        sx={{'.MuiTablePagination-selectLabel':{marginRight:'5px'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none'}}}
+        labelRowsPerPage='Showing'
       />
               }
         {
