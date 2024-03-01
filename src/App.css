@@ -2,12 +2,16 @@
   font-family: Geist;
   src: url('./fonts/Amazon\ Ember.ttf');
 }
+@font-face {
+  font-family: Arabic;
+  src: url('./fonts/NotoNaskhArabic-Regular.ttf');
+}
 .App {
   text-align: start;
   
 }
 *{
-  font-family: Geist !important;
+  font-family: Geist,Arabic !important;
 }
 
 .App-logo {

@@ -306,7 +306,7 @@ const SampleDrawer1 = () => {
     }),
   }));
   return (
-    <div >
+    <div  style={{fontFamily:language?'Geist':'Arabic'}}>
       {/* <Button onClick={toggleDrawer(true)}>Open Drawer</Button> */}
       <AppBar position="fixed" style={{background:"#000000",color:"#ffffff",justifyContent:'space-between'}} open={open}>
         <Toolbar style={{ display:'flex',flexDirection:language?'row':'row-reverse'}} >
