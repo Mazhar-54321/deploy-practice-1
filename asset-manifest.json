@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.6ee9dcbb.css",
-    "main.js": "/static/js/main.23a7442e.js",
+    "main.js": "/static/js/main.2ab234d6.js",
     "static/js/206.66019059.chunk.js": "/static/js/206.66019059.chunk.js",
     "static/media/Amazon Ember.ttf": "/static/media/Amazon Ember.4c5f8783fc6015d993cd.ttf",
     "static/media/NotoNaskhArabic-Regular.ttf": "/static/media/NotoNaskhArabic-Regular.2ff480cc600bf20dd0d1.ttf",
@@ -10,6 +10,6 @@
   },
   "entrypoints": [
     "static/css/main.6ee9dcbb.css",
-    "static/js/main.23a7442e.js"
+    "static/js/main.2ab234d6.js"
   ]
 }
