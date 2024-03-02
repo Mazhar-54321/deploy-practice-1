@@ -62,10 +62,10 @@ export default function SampleAccordion({urduNumbers,start,language,accordionDat
                 {!language&&<><span>({urduNumbers[i+start]} </span><span style={{fontSize:'12px'}}>س</span></>}
                 {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
               </AccordionSummary>
-              <AccordionDetails sx={{textAlign:!language?'right':'left', paddingLeft:'10px'}}>
-                <Typography sx={{marginLeft:'5px',padding:'5px',fontSize:language?'12px':'12px',fontWeight:'400'}}>
+              <AccordionDetails sx={{textAlign:!language?'right':'left',padding:'0px', paddingLeft:'10px'}}>
+                <Typography sx={{marginLeft:'5px',padding:'5px',paddingTop:'0px',fontSize:language?'12px':'12px',fontWeight:'400',fontFamily:language?'Manrope':'Arabic'}}>
                 {/* {language?element?.answer.split('\n').map(e=><div key={e}>{e}</div>):element?.urduAnswer.split('\n').map(e=><div key={e}>{e}</div>)} */}
-                {language? element?.answer.split('\n').map(e=><div style={{fontWeight:'550'}} key={e}>{e}</div>) :element?.urduAnswer.split('\n').map(e=><div style={{font:'20px',fontWeight:'550'}} key={e}>{e}</div>)}
+                {language? element?.answer.split('\n').map(e=><div style={{fontWeight:'550',fontFamily:'Manrope !important'}} key={e}>{e}</div>) :element?.urduAnswer.split('\n').map(e=><div style={{font:'20px',fontWeight:'550'}} key={e}>{e}</div>)}
                 </Typography>
               </AccordionDetails>
             </Accordion>
