@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-export default function SampleAccordion({start,language,accordionData,index,setIndex}) {
+export default function SampleAccordion({urduNumbers,start,language,accordionData,index,setIndex}) {
   const [expanded, setExpanded] = React.useState(index);
   const [elements, setElements] = React.useState([false]);
   console.log(index);
@@ -59,7 +59,7 @@ export default function SampleAccordion({start,language,accordionData,index,setI
                { language? getQuestionLabel(element?.question,i):getQuestionLabel(element?.Urdu,i)}
                
                 </Typography>
-                {/* {!language&&<span>({i+start}Q</span>} */}
+                {!language&&<><span>({urduNumbers[i+start]} </span><span style={{fontSize:'12px'}}>س</span></>}
                 {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
               </AccordionSummary>
               <AccordionDetails sx={{textAlign:!language?'right':'left', paddingLeft:'10px'}}>
