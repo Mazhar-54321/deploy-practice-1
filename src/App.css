@@ -10,7 +10,12 @@
 }
 .App {
   text-align: start;
+  padding: 0px;
   
+}
+#main-class{
+  padding:0px;
+  margin: 5px;
 }
 *{
   font-family: "Montserrat","Manrope", sans-serif ;

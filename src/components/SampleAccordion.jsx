@@ -49,7 +49,7 @@ export default function SampleAccordion({urduNumbers,start,language,accordionDat
               }
           }} expanded={i===index} onChange={handleChange(i)}>
               <AccordionSummary
-               sx={{flexDirection:!language?'row-reverse':'row'}}
+               sx={{flexDirection:!language?'row-reverse':'row',padding:'0px'}}
                 expandIcon={i===index ? <RemoveIcon sx={{color:'#000000'}} /> : <AddIcon sx={{color:'#000000'}}/>}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
@@ -63,7 +63,7 @@ export default function SampleAccordion({urduNumbers,start,language,accordionDat
                 {/* <Typography sx={{ color: 'text.secondary' }}>I am an accordion Really</Typography> */}
               </AccordionSummary>
               <AccordionDetails sx={{textAlign:!language?'right':'left',padding:'0px', paddingLeft:'10px'}}>
-                <Typography sx={{marginLeft:'5px',padding:'5px',paddingTop:'0px',fontSize:language?'12px':'12px',fontWeight:'400',fontFamily:language?'Manrope':'Arabic'}}>
+                <Typography sx={{paddingTop:'0px',fontSize:language?'12px':'12px',fontWeight:'400',fontFamily:language?'Manrope':'Arabic'}}>
                 {/* {language?element?.answer.split('\n').map(e=><div key={e}>{e}</div>):element?.urduAnswer.split('\n').map(e=><div key={e}>{e}</div>)} */}
                 {language? element?.answer.split('\n').map(e=><div style={{fontWeight:'550',fontFamily:'Manrope !important'}} key={e}>{e}</div>) :element?.urduAnswer.split('\n').map(e=><div style={{font:'20px',fontWeight:'550'}} key={e}>{e}</div>)}
                 </Typography>

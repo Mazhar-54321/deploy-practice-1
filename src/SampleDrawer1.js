@@ -436,7 +436,7 @@ const SampleDrawer1 = () => {
     }),
   }));
   return (
-    <div  style={{fontFamily:language?'Montserrat, sans-serif' :'Arabic'}}>
+    <div  style={{fontFamily:language?'Montserrat, sans-serif' :'Arabic',padding:'0px'}}>
       {/* <Button onClick={toggleDrawer(true)}>Open Drawer</Button> */}
       <AppBar position="fixed" style={{background:"#000000",color:"#ffffff",justifyContent:'space-between'}} open={open}>
         <Toolbar style={{ display:'flex',flexDirection:language?'row':'row-reverse'}} >
@@ -554,7 +554,7 @@ const SampleDrawer1 = () => {
         </Accordion>
         </div>
       </Drawer>
-      <Main open={open}>
+      <Main id='main-class' open={open}>
         <DrawerHeader />
         {( appbarText!=='Intro' && appbarText!=='تعارف')&&
         accordionData?.[getTopicName(value)]?.[level].length>8&&
@@ -572,7 +572,7 @@ const SampleDrawer1 = () => {
               }
         {
          ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} />:
-        <Typography style={{textAlign:language?'left':'right',fontWeight:'600'}}>{language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}</Typography>
+        <Typography style={{textAlign:language?'left':'right',fontWeight:'600',padding:'0px'}}>{language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}</Typography>
         }
 
       </Main>
