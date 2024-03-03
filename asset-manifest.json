@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.cb803dec.css",
-    "main.js": "/static/js/main.772613e7.js",
+    "main.css": "/static/css/main.6a6ad022.css",
+    "main.js": "/static/js/main.af901a31.js",
     "static/js/206.66019059.chunk.js": "/static/js/206.66019059.chunk.js",
     "static/media/Amazon Ember.ttf": "/static/media/Amazon Ember.4c5f8783fc6015d993cd.ttf",
     "static/media/NotoNaskhArabic-Regular.ttf": "/static/media/NotoNaskhArabic-Regular.2ff480cc600bf20dd0d1.ttf",
@@ -9,7 +9,7 @@
     "index.html": "/index.html"
   },
   "entrypoints": [
-    "static/css/main.cb803dec.css",
-    "static/js/main.772613e7.js"
+    "static/css/main.6a6ad022.css",
+    "static/js/main.af901a31.js"
   ]
 }
