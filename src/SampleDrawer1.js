@@ -565,7 +565,7 @@ const SampleDrawer1 = () => {
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{'.MuiTablePagination-selectLabel':{marginRight:'-30px'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none',marginRight:'0px'}}}
+        sx={{'.MuiTablePagination-toolbar':{paddingLeft:'0px'}, '.MuiTablePagination-selectLabel':{marginRight:'-30px'},'.MuiTablePagination-spacer':{display:'none'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none',marginRight:'0px'},maxWidth:'300px'}}
         labelRowsPerPage='Showing'
         labelDisplayedRows={({from,to,count})=>getLabelText(from,to,count)}
       />
