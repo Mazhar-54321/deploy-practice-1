@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable default-case */
 /* eslint-disable react/jsx-no-undef */
@@ -10,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Pagination from '@mui/material/Pagination';
-
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -23,9 +24,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import SampleAccordion from './components/SampleAccordion';
+import SignIn from './signIn';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebaseConfig';
+import SignOut from './SignOut';
+import QazaNamaz from './components/QazaNamaz';
+
+
 const drawerWidth = 300;
 const BACKGROUND_SELECTED = 'rgb(0,0,0,1)'
 const BACKGROUND_NULL = 'rgb(0,0,0,0)'
+
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -53,7 +62,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     }),
   }),
 );
-const SampleDrawer1 = () => {
+const SampleDrawer1 = ({app}) => {
   const urduNumbers = {
     1: '١',
     2: '٢',
@@ -213,6 +222,11 @@ const SampleDrawer1 = () => {
         Urdu:"دن اور رات میں کُل کتنی نمازیں فرض ہیں؟",
         urduAnswer:"دن وو رات میں کل پانچ نمازیں فرض ہیں۔\n١) فجر\n٢) ظہر\n٣) عصر\n٤) مغرب\n٥) عشاء۔",
         answer:"Din wo raat me kul paanch namazey farz hai . \n1)fajr\n2)zuhr\n3)asr\n4)magrib\n5)isha"
+      },{
+        question:"Din aur rat me kul kitni namazey farz hai?",
+        Urdu:"دن اور رات میں کُل کتنی نمازیں فرض ہیں؟",
+        urduAnswer:"دن وو رات میں کل پانچ نمازیں فرض ہیں۔\n١) فجر\n٢) ظہر\n٣) عصر\n٤) مغرب\n٥) عشاء۔",
+        answer:"Din wo raat me kul paanch namazey farz hai . \n1)fajr\n2)zuhr\n3)asr\n4)magrib\n5)isha"
       }],
       Level2:[{
         question:"Namaz me Kitne Farz hai?",
@@ -273,7 +287,17 @@ const SampleDrawer1 = () => {
 
     setOpenDrawer(open);
   };
+  const db = getFirestore(app);
 
+// Get a list of cities from your database
+async function getCities(db) {
+  const citiesCol = collection(db, 'cities');
+  const citySnapshot = await getDocs(citiesCol);
+  const cityList = citySnapshot.docs.map(doc => doc.data());
+  console.log(cityList)
+  return cityList;
+}
+useEffect(()=>{getCities(db)},[]);
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -352,6 +376,11 @@ const SampleDrawer1 = () => {
     urduTitle:"زکات",
     background: BACKGROUND_NULL
   },
+  {
+    title: 'Qaza Namaz',
+    urduTitle:"زکات",
+    background: BACKGROUND_NULL
+  },
   ])
   const handleDrawerClose = () => {
     setOpen(false);
@@ -375,7 +404,7 @@ const SampleDrawer1 = () => {
       case 1: setAppbarText(language?'Roza':"روزہ"); ; break;
       case 2: setAppbarText(language?'Hujj':"حج" ); ; break;
       case 3: setAppbarText(language?'Zakat':"زکات"); ; break;
-      
+      case 4: setAppbarText(language?'Qaza Namaz':"زکات"); ; break;
     }
   }
   const getAppBarText =(value)=>{
@@ -438,8 +467,8 @@ const SampleDrawer1 = () => {
   return (
     <div  style={{fontFamily:language?'Montserrat, sans-serif' :'Arabic',padding:'0px'}}>
       {/* <Button onClick={toggleDrawer(true)}>Open Drawer</Button> */}
-      <AppBar position="fixed" style={{background:"#000000",color:"#ffffff",justifyContent:'space-between'}} open={open}>
-        <Toolbar style={{ display:'flex',flexDirection:language?'row':'row-reverse'}} >
+      <AppBar position="fixed" sx={{'.MuiToolbar-root':{paddingLeft:language?'10px':'0px',paddingRight:language?'0px':'0px'}}} style={{background:"#000000",color:"#ffffff",justifyContent:'space-between'}} open={open}>
+        <Toolbar sx={{'.MuiIconButton-root':{marginRight:language?'16px':'0px'}}} style={{ display:'flex',flexDirection:language?'row':'row-reverse'}} >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -555,24 +584,29 @@ const SampleDrawer1 = () => {
         </div>
       </Drawer>
       <Main id='main-class' open={open}>
-        <DrawerHeader />
-        {( appbarText!=='Intro' && appbarText!=='تعارف')&&
+        {/* <DrawerHeader /> */}
+        {/* {( appbarText!=='Intro' && appbarText!=='تعارف')&&
         accordionData?.[getTopicName(value)]?.[level].length>8&&
-        <TablePagination
+        
+              } */}
+        {
+         ( appbarText!=='Intro' && appbarText!=='تعارف')?<> 
+         <TablePagination
         component="div"
         count={Math.round(accordionData?.[getTopicName(value)]?.[level].length)}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{'.MuiTablePagination-toolbar':{paddingLeft:'0px'}, '.MuiTablePagination-selectLabel':{marginRight:'-30px'},'.MuiTablePagination-spacer':{display:'none'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none',marginRight:'0px'},maxWidth:'300px'}}
+        sx={{'.MuiTablePagination-actions ':{padding:'15px'}, '.MuiTablePagination-toolbar':{paddingLeft:'0px',width:'100%'}, '.MuiTablePagination-selectLabel':{width:'30%'},'.MuiTablePagination-spacer':{display:'none'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none',marginRight:'0px'},maxWidth:'110%',overflow:'hidden'}}
         labelRowsPerPage='Showing'
         labelDisplayedRows={({from,to,count})=>getLabelText(from,to,count)}
       />
-              }
-        {
-         ( appbarText!=='Intro' && appbarText!=='تعارف')? <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} />:
-        <Typography style={{textAlign:language?'left':'right',fontWeight:'600',padding:'0px'}}>{language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}</Typography>
+         <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} /></>:
+        // <Typography style={{textAlign:language?'left':'right',fontWeight:'600',padding:'0px'}}>
+        //   {language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}
+        //   </Typography>
+        <QazaNamaz/>
         }
 
       </Main>

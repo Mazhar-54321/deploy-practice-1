@@ -110,6 +110,10 @@ export default function SampleDrawer() {
     title: 'Zakat',
     background: BACKGROUND_NULL
   },
+  {
+    title:'Qaza Namaz',
+    background: BACKGROUND_NULL
+  }
   ])
 
   const [appbarText, setAppbarText] = React.useState('Test Mode')
