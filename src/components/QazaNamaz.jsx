@@ -87,6 +87,7 @@ export default function DatePickerValue() {
     setAge(event.target.value);
   };
   async function updateDocumentField(collectionName, documentId, data) {
+    console.log('updatingData',data)
     try {
       // Reference to the document
       const docRef = doc(db, collectionName, documentId);
@@ -116,8 +117,8 @@ export default function DatePickerValue() {
      setIsDialogOpen(true);
     updateDocumentField('qaza_namaz',user?.email,{...format,target:{...format.target,years:years,months:months,days:days}})
   }
-  const closeDialog=(years,months,days)=>{
-    changeTarget(years,months,days);
+  const closeDialog=(year,month,day)=>{
+    changeTarget(year,month,day);
     setIsDialogOpen(false);
   }
   
@@ -163,13 +164,13 @@ export default function DatePickerValue() {
   return (
     <div className='mazhar' style={{display:'flex',flexDirection:'column'}}>
  { isDialogOpen && <MyDialog data={target} flag={isUserDataExist} open ={true} onClose={closeDialog}/> }
- { true && <CurrentTargetDialog data={target} flag={isUserDataExist} open ={true} onClose={closeDialog}/> }
+ { isPerformanceDialogOpen && <CurrentTargetDialog data={target} flag={isUserDataExist} open ={true} onClose={closeDialog}/> }
  
         <div style={{width:'100%',marginBottom:'10px'}}>{!user ? <SignIn />:<SignOut  user={user}/>}</div>
         {user &&  <div>
             <div style={{display:'flex',width:'100%',height:'40px',marginTop:'10px', marginBottom:'20px', justifyContent:'space-between'}} >
                
-               <Button onClick={changeTarget} style={{width:'50%',  textTransform:'none'}} variant='contained' >{isUserDataExist ? 'View and update target':'Set Target'}</Button>
+               <Button onClick={changeTarget} style={{width:'50%',  textTransform:'none'}} variant='contained' >{isUserDataExist ? 'View and update target1':'Set Target'}</Button>
             </div>
            {isUserDataExist && <div style={{marginTop:'10px',marginBottom:'10px'}}>
             <Accordion>
