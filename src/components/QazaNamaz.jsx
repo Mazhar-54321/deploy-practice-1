@@ -163,7 +163,7 @@ export default function DatePickerValue() {
   return (
     <div className='mazhar' style={{display:'flex',flexDirection:'column'}}>
  { isDialogOpen && <MyDialog data={target} flag={isUserDataExist} open ={true} onClose={closeDialog}/> }
- { true && <CurrentTargetDialog data={target} flag={isUserDataExist} open ={true} onClose={closeDialog}/> }
+ { isDialogOpen && <CurrentTargetDialog data={target} flag={isUserDataExist} open ={true} onClose={closeDialog}/> }
  
         <div style={{width:'100%',marginBottom:'10px'}}>{!user ? <SignIn />:<SignOut  user={user}/>}</div>
         {user &&  <div>
