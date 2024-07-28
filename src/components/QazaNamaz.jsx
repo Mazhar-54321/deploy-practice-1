@@ -74,7 +74,7 @@ export default function DatePickerValue() {
   const [age, setAge] = React.useState('');
   const [isUserDataExist,setIsUserDataExist] = React.useState(false);
   const [target,setTarget] = React.useState({years:0,months:0,days:0});
-  const [format,setFormat] = React.useState({
+  const [format] = React.useState({
     target:{
       years:0,months:0,days:0, individual:new Array(6).fill(0)
     },
@@ -158,21 +158,26 @@ export default function DatePickerValue() {
       return false; // In case of error, return false
     }
   }
+  const closePerformanceDialog = ()=>{
+    setIsPerformanceDialogOpen(false);
+  }
+  
   
   
 
   return (
     <div className='mazhar' style={{display:'flex',flexDirection:'column'}}>
  { isDialogOpen && <MyDialog data={target} flag={isUserDataExist} open ={true} onClose={closeDialog}/> }
- { isPerformanceDialogOpen && <CurrentTargetDialog data={target} flag={isUserDataExist} open ={true} onClose={closeDialog}/> }
+ { isPerformanceDialogOpen && <CurrentTargetDialog closePerformanceDialog={closePerformanceDialog} data={target} flag={isUserDataExist} open ={true} onClose={closeDialog}/> }
  
         <div style={{width:'100%',marginBottom:'10px'}}>{!user ? <SignIn />:<SignOut  user={user}/>}</div>
         {user &&  <div>
             <div style={{display:'flex',width:'100%',height:'40px',marginTop:'10px', marginBottom:'20px', justifyContent:'space-between'}} >
                
-               <Button onClick={changeTarget} style={{width:'50%',  textTransform:'none'}} variant='contained' >{isUserDataExist ? 'View and update target1':'Set Target'}</Button>
+               <Button onClick={changeTarget} style={{textTransform:'none'}} variant='contained' >{isUserDataExist ? 'View and update target':'Set Target'}</Button>
             </div>
-           {isUserDataExist && <div style={{marginTop:'10px',marginBottom:'10px'}}>
+           {isUserDataExist && 
+           <div style={{marginTop:'10px',marginBottom:'10px'}}>
             <Accordion>
         <AccordionSummary
           expandIcon={<ArrowDownwardIcon />}
@@ -248,35 +253,12 @@ export default function DatePickerValue() {
     </TableContainer>
         </AccordionDetails>
       </Accordion>
+      <Button  onClick={()=>setIsPerformanceDialogOpen(true)} style={{textTransform:'none',marginTop:'10px'}} variant='contained' >{ 'Update Qaza Namaz'}</Button>
             </div>}
-           {isUserDataExist && <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DatePicker', 'DatePicker']}>
-        
-        <DatePicker
-          label="Select Date"
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
-          maxDate={dayjs()}
-        />
-      </DemoContainer>
-    </LocalizationProvider>}
-    {isUserDataExist &&<Box sx={{ minWidth: 120 , marginTop:'10px' }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Select Entry Type</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Select Entry Type"
-          onChange={handleChange}
-        >
-          <MenuItem value={0}>Days</MenuItem>
-          <MenuItem value={1}>Individual</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>}
-    {isUserDataExist && age == '0' && <div>0</div>}
-    {isUserDataExist && age == '1' && <div>1</div>}
+           {
+
+           }
+    
     </div>}
     </div>
     

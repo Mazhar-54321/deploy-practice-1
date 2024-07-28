@@ -6,7 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-const CurrentTargetDialog = ({ open, onClose,data,flag }) => {
+const CurrentTargetDialog = ({ open,closePerformanceDialog }) => {
   const [currentValues,setCurrentValues] = useState([0,0,0,0,0,0])
   const [value, setValue] = React.useState(dayjs());
   const [days,setDays]= useState(0);
@@ -15,7 +15,7 @@ const CurrentTargetDialog = ({ open, onClose,data,flag }) => {
   return (
     <Dialog
       open={open}
-      onClose={()=>onClose()}
+      onClose={()=>closePerformanceDialog()}
       fullWidth
       maxWidth={false} // Ensures the dialog is full width
       PaperProps={{
@@ -47,7 +47,9 @@ const CurrentTargetDialog = ({ open, onClose,data,flag }) => {
           onChange={(e)=>{setDays(e.target.value);}}
           variant="outlined"
         />
-      <TextField
+     <div style={{display:'flex',justifyContent:'space-between'}}> <TextField
+               style={{marginRight:'10px'}}
+
           fullWidth
           margin="normal"
           label="Enter Number of fajr Qaza U prayed"
@@ -65,7 +67,10 @@ const CurrentTargetDialog = ({ open, onClose,data,flag }) => {
           onChange={(e)=>{setCurrentValues((prev)=>prev.map((e,i)=>e=i==1?e.target.value:e))}}
           variant="outlined"
         />
-        <TextField
+        </div>
+        <div style={{display:'flex',justifyContent:'space-between'}}> <TextField
+                  style={{marginRight:'10px'}}
+
           fullWidth
           margin="normal"
           label="Enter Number of asr Qaza U prayed"
@@ -83,12 +88,15 @@ const CurrentTargetDialog = ({ open, onClose,data,flag }) => {
           onChange={(e)=>{setCurrentValues((prev)=>prev.map((e,i)=>e=i==3?e.target.value:e))}}
           variant="outlined"
         />
+       </div>
+       <div style={{display:'flex',justifyContent:'space-between'}}> 
         <TextField
           fullWidth
           margin="normal"
           label="Enter Number of isha Qaza U prayed"
           type="number"
           value={currentValues[4]}
+          style={{marginRight:'10px'}}
           onChange={(e)=>{setCurrentValues((prev)=>prev.map((e,i)=>e=i==4?e.target.value:e))}}
           variant="outlined"
         />
@@ -101,10 +109,11 @@ const CurrentTargetDialog = ({ open, onClose,data,flag }) => {
           onChange={(e)=>{setCurrentValues((prev)=>prev.map((e,i)=>e=i==5?e.target.value:e))}}
           variant="outlined"
         />
+        </div>
        
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
+        <Button onClick={closePerformanceDialog} color="primary">
           Cancel
         </Button>
         <Button onClick={()=>{
