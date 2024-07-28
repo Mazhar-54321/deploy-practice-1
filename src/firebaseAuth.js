@@ -21,9 +21,7 @@ function FirebaseAuth() {
     // Initialize the FirebaseUI Widget
     const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
     
-    // Start the FirebaseUI Widget
-    console.log('FirebaseUI Instance:', ui);
-  console.log('UI Configuration:', uiConfig);
+  
     ui.start('#firebaseui-auth-container', uiConfig);
     
     // Cleanup FirebaseUI instance on component unmount

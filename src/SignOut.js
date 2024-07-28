@@ -6,11 +6,9 @@ import { auth } from './firebaseConfig';
 import { Button, Typography } from '@mui/material';
 
 function SignOut({user}) {
-  console.log(user)
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      console.log('User signed out');
     } catch (error) {
       console.error('Error signing out:', error);
     }

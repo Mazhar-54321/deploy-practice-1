@@ -1,27 +1,46 @@
 // src/SignIn.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from './firebaseConfig';
-import { Button } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 
 function SignIn() {
+  const [loader,setLoader] = useState(false);
   const handleSignIn = async () => {
+    setLoader(true);
     try {
+      
       const result = await signInWithPopup(auth, googleProvider);
-      // The signed-in user info
-      const user = result.user;
-      console.log('User:', user);
-      // You can handle additional actions here, like redirecting or saving user info
+      console.log(result);
     } catch (error) {
-      console.error('Error during sign-in:', error);
-      // Handle Errors here.
+      setLoader(false);
+    }
+    finally{
+      setLoader(false);
     }
   };
 
   return (
-    <div style={{width:'100%',textAlign:'end',marginTop:'10px'}}>
-      <Button style={{textTransform:'none'}} variant='contained'  onClick={handleSignIn}>Sign in with Google</Button>
+    <div className='ali' style={{width:'100%',textAlign:'end',marginTop:'10px'}}>
+      {loader ? <Box
+      sx={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Optional: to create an overlay effect
+        zIndex: 1300, // Higher than other components
+      }}
+    >
+      <CircularProgress />
+    </Box>
+      :<Button style={{textTransform:'none'}} variant='contained'  onClick={handleSignIn}>Sign in with Google</Button>
+    }
     </div>
   );
 }

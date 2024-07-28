@@ -378,7 +378,7 @@ useEffect(()=>{getCities(db)},[]);
   },
   {
     title: 'Qaza Namaz',
-    urduTitle:"زکات",
+    urduTitle:"Qaza Namaz",
     background: BACKGROUND_NULL
   },
   ])
@@ -584,13 +584,15 @@ useEffect(()=>{getCities(db)},[]);
         </div>
       </Drawer>
       <Main id='main-class' open={open}>
-        {/* <DrawerHeader /> */}
-        {/* {( appbarText!=='Intro' && appbarText!=='تعارف')&&
-        accordionData?.[getTopicName(value)]?.[level].length>8&&
+        <DrawerHeader />
+        {( appbarText!=='Intro' && appbarText!=='تعارف')&&
+        accordionData?.[getTopicName(value)]?.[level].length>8
         
-              } */}
+              }
         {
-         ( appbarText!=='Intro' && appbarText!=='تعارف')?<> 
+         ( appbarText!=='Intro' && appbarText!=='تعارف' && appbarText != 'Qaza Namaz' )
+         ?
+         <> 
          <TablePagination
         component="div"
         count={Math.round(accordionData?.[getTopicName(value)]?.[level].length)}
@@ -602,11 +604,14 @@ useEffect(()=>{getCities(db)},[]);
         labelRowsPerPage='Showing'
         labelDisplayedRows={({from,to,count})=>getLabelText(from,to,count)}
       />
-         <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} /></>:
-        // <Typography style={{textAlign:language?'left':'right',fontWeight:'600',padding:'0px'}}>
-        //   {language?'Ye Website banane ka maqsad sunni musalmano ko unke aqaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}
-        //   </Typography>
-        <QazaNamaz/>
+         <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} /></>
+         :
+         appbarText !== 'Qaza Namaz' ? (<Typography style={{textAlign:language?'left':'right',fontWeight:'600',padding:'0px'}}>
+          {language?'Ye Website banane ka maqsad sunni musalmano ko unke akhaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}
+          </Typography>
+          ):
+          <QazaNamaz />
+       
         }
 
       </Main>

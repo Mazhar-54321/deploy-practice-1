@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
 
-const MyDialog = ({ open, onClose,data,flag }) => {
+const MyDialog = ({ open, onClose,data,flag,setIsDialogOpen }) => {
   const [years, setYears] = useState(data?.years);
   const [months, setMonths] = useState(data?.months);
   const [days, setDays] = useState(data?.days);
 
   const handleAdd = () => {
-    console.log(years,months,days);
     let totalDays = years*365+months*30+days;
-    console.log(totalDays)
     onClose(years,months,days);
   };
   const getFormattedTitle = ()=>{
@@ -83,7 +81,7 @@ const MyDialog = ({ open, onClose,data,flag }) => {
        
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
+        <Button onClick={()=>setIsDialogOpen(false)} color="primary">
           Cancel
         </Button>
         <Button onClick={handleAdd} color="primary">
