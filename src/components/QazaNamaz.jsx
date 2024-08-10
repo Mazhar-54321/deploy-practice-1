@@ -55,10 +55,11 @@ export default function DatePickerValue() {
       let docSnap = await getDoc(docRef);
       
       if (docSnap.exists()) {
+        delete data.data;
        await updateDoc(docRef, data).then( (el)=>{
         
        }).catch((err)=>{toast.error(err)});
-       
+       //project-771930209257
        docSnap = await getDoc(docRef)
        setQazaNamazData({...docSnap.data()})
       } else {

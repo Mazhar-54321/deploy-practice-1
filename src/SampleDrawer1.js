@@ -314,7 +314,7 @@ useEffect(()=>{getCities(db)},[]);
   const [appbarText, setAppbarText] = React.useState(language?'Intro':'تعارف')
   const [level,setLevel] = React.useState('Level1');
   const [level1,setLevel1] = React.useState('Roman');
-  
+  const [topicIndex,setTopicIndex] = useState(-1);
 
   useEffect(()=>{
    getAppBarText(value);
@@ -355,57 +355,115 @@ useEffect(()=>{getCities(db)},[]);
       }
     },
   });
-  const [listData, setListData] = React.useState([{
-    title: 'Namaz',
-    urduTitle:'نماز',
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Roza',
-    urduTitle:"روزہ",
-    background: BACKGROUND_NULL
-  },
-
-  {
-    title: 'Hujj',
-    urduTitle:"حج",
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Zakat',
-    urduTitle:"زکات",
-    background: BACKGROUND_NULL
-  },
-  {
-    title: 'Qaza Namaz',
-    urduTitle:"Qaza Namaz",
-    background: BACKGROUND_NULL
-  },
-  ])
+  const [listData, setListData] = React.useState(
+    
+     {
+      "miyahuzzor": [
+    {
+      title: 'Shijra Shareef',
+      urduTitle:"Shijra Shareef",
+      background: BACKGROUND_NULL
+    },
+    {
+      title: 'Mamulat',
+      urduTitle:"Mamulat",
+      background: BACKGROUND_NULL
+    },
+    {
+      title: 'Haalat e Zindagi',
+      urduTitle:"Haalat e Zindagi",
+      background: BACKGROUND_NULL
+    },
+    {
+      title: 'Riyazaat',
+      urduTitle:"Riyazaat",
+      background: BACKGROUND_NULL
+    },
+    {
+      title: 'Goal',
+      urduTitle:"Goal",
+      background: BACKGROUND_NULL
+    },
+   
+  // {
+  //   title: 'Qaza Namaz',
+  //   urduTitle:"Qaza Namaz",
+  //   background: BACKGROUND_NULL
+  // },
+  ],
+"others":[ {
+  title: 'Courses',
+  urduTitle:"Courses",
+  background: BACKGROUND_NULL
+},
+{
+  title: 'Products',
+  urduTitle:"Products",
+  background: BACKGROUND_NULL
+},
+{
+  title: 'Events',
+  urduTitle:"Events",
+  background: BACKGROUND_NULL
+},
+{
+  title: 'Appointment',
+  urduTitle:"Appointment",
+  background: BACKGROUND_NULL
+},
+{
+  title: 'Student Portal',
+  urduTitle:"Student Portal",
+  background: BACKGROUND_NULL
+}] })
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const getLayout = (value) => {
-    let oldArray = [...listData]
-    oldArray = oldArray.map((e, i) => {
-      if (i == value) {
-        e.background = BACKGROUND_SELECTED
-      } else {
-        e.background = BACKGROUND_NULL
+  const getLayout = (value,parentIndex,title) => {
+    console.log('valuevalue');
+    setTopicIndex(title);
+    let obj ={...listData};
+    console.log(obj,'objjjjj')
+    let keys = Object.keys(obj);
+    keys.forEach(e=>{
+      console.log(e,parentIndex);
+      if(e==parentIndex){
+        let oldArray = [...listData[parentIndex]]
+        oldArray = oldArray.map((e, i) => {
+          if (i == value) {
+            e.background = BACKGROUND_SELECTED
+          } else {
+            e.background = BACKGROUND_NULL
+          }
+          return e
+    
+        }
+        )
+        obj[e]=oldArray;
+      }else{
+        
+        let oldArray = [...listData[e]]
+        oldArray = oldArray.map((e, i) => {
+            e.background = BACKGROUND_NULL;
+          return e
+    
+        }
+        )
+        obj[e]=oldArray;
       }
-      return e
-
-    }
-    )
-    setListData(oldArray)
+    })
+    console.log('objobj',obj);
+    setListData(obj)
     setLevel('Level1');
-    switch (value) {
-      case 0: setAppbarText(language?'Namaz':'نماز'); break;
-      case 1: setAppbarText(language?'Roza':"روزہ"); ; break;
-      case 2: setAppbarText(language?'Hujj':"حج" ); ; break;
-      case 3: setAppbarText(language?'Zakat':"زکات"); ; break;
-      case 4: setAppbarText(language?'Qaza Namaz':"زکات"); ; break;
-    }
+    setAppbarText(title);
+    // switch (value) {
+    //   case 0: setAppbarText(language?'Shijra Shareef':'نماز'); break;
+    //   case 1: setAppbarText(language?'Courses':"روزہ"); ; break;
+    //   case 2: setAppbarText(language?'Products':"حج" ); ; break;
+    //   case 3: setAppbarText(language?'Events':"زکات"); ; break;
+    //   case 4: setAppbarText(language?'Appointment':"زکات"); ; break;
+    //   case 4: setAppbarText(language?'Student Portal':"زکات"); ; break;
+    // }
   }
   const getAppBarText =(value)=>{
     switch (value) {
@@ -478,77 +536,16 @@ useEffect(()=>{getCities(db)},[]);
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" style={{width:'120px',fontWeight:'600'}} noWrap component="div">
+          <Typography variant="h6" style={{width:'250px',fontWeight:'600'}} noWrap component="div">
             {appbarText}
           </Typography>
-          <div style={{display:'flex',width:'100%',justifyContent:language?'flex-end':'flex-start'}}>
-          <Button
-        
-        onClick={handleMenuClick2}
-        endIcon={<ExpandMoreIcon />}
-        style={{color:'white',textTransform:'none'}}
-      >
-       { level}
-      </Button>
-      <Menu
-            anchorEl={anchorElTwo}
-            open={Boolean(anchorElTwo)}
-            onClose={handleMenuClose2}
-            style={{left:language?window.innerWidth-150:16}}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-          >
-             <MenuItem onClick={()=>{setLevel('Level1');handleMenuClose2()}}>Level1</MenuItem>
-        <MenuItem onClick={()=>{setLevel('Level2');handleMenuClose2()}}>Level2</MenuItem>
-        <MenuItem onClick={()=>{setLevel('Level3');handleMenuClose2()}}>Level3</MenuItem>
-          </Menu>
-     
-          </div>
+          
         </Toolbar>
       </AppBar>
       <Drawer anchor={language?"left":"right"} style={{width:'300px'}} open={openDrawer} onClose={toggleDrawer(false)}>
         <div>
          
-          <DrawerHeader style={{background:'#000000',color:'#ffffff'}} >
-        <div style={{width:'100%',background:'#000000',color:'#ffffff', display:'flex',alignItems:'start', justifyContent:'space-between'}}>
-          <div style={{marginTop:'5px'}}><span style={{ width:'50%',padding:'2px 5px 2px 5px', border:'1px solid #ffffff'}}>Guest</span>
-          <Button
-        
-        onClick={handleMenuClick}
-        endIcon={<ExpandMoreIcon />}
-        style={{color:'white',textTransform:'none',marginLeft:'100px'}}
-      >
-       { level1}
-      </Button>
-      <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-          >
-             <MenuItem onClick={()=>{handleClose1('Roman');;handleMenuClose()}}>Roman</MenuItem>
-        <MenuItem onClick={()=>{handleClose1('Urdu');;handleMenuClose()}}>Urdu</MenuItem>
-          </Menu>
-      
-      </div>
           
-        </div>
-         
-        </DrawerHeader>
-        <Divider  />
         <Accordion elevation={0} style={{marginTop:'0px',}} sx={{
           
           padding:0,
@@ -562,17 +559,17 @@ useEffect(()=>{getCities(db)},[]);
             id="panel1bh-header"
           >
             <Typography sx={{ width: '100%',textAlign:!language?'right':'left',fontWeight:'bold',fontSize:'18px', flexShrink: 0 }}>
-              {language?'Aamal':'اعمال'}
+              {language?'Miya huzoor':'اعمال'}
             </Typography>
           </AccordionSummary>
           <AccordionDetails style={{ padding: '0px 0px 0px 0px' }}>
             <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px',flexDirection:'row-reverse' }}>
-              {listData.map((text, index) => (
+              {listData['miyahuzzor'].map((text, index) => (
                 <ListItem 
                 sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} 
                 key={text+','+index} 
                 disablePadding>
-                  <ListItemButton onClick={() => {setOpenDrawer(false); setValue(index); getLayout(index);  }}>
+                  <ListItemButton onClick={() => {setOpenDrawer(false); setValue(index); getLayout(index,'miyahuzzor',text.title);  }}>
                    
                     <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100',textAlign:language?'left':'right'}} primary={language?text.title:text.urduTitle} />
                   </ListItemButton>
@@ -581,6 +578,20 @@ useEffect(()=>{getCities(db)},[]);
             </List>
           </AccordionDetails>
         </Accordion>
+        <Divider/>
+        <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px',flexDirection:'row-reverse' }}>
+              {listData['others'].map((text, index) => (
+                <ListItem 
+                sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} 
+                key={text+','+index} 
+                disablePadding>
+                  <ListItemButton onClick={() => {setOpenDrawer(false); setValue(index); getLayout(index,'others',text.title);  }}>
+                   
+                    <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100',textAlign:language?'left':'right'}} primary={language?text.title:text.urduTitle} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
         </div>
       </Drawer>
       <Main id='main-class' open={open}>
@@ -593,18 +604,8 @@ useEffect(()=>{getCities(db)},[]);
          ( appbarText!=='Intro' && appbarText!=='تعارف' && appbarText != 'Qaza Namaz' )
          ?
          <> 
-         <TablePagination
-        component="div"
-        count={Math.round(accordionData?.[getTopicName(value)]?.[level].length)}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{'.MuiTablePagination-actions ':{padding:'15px'}, '.MuiTablePagination-toolbar':{paddingLeft:'0px',width:'100%'}, '.MuiTablePagination-selectLabel':{width:'30%'},'.MuiTablePagination-spacer':{display:'none'},'.MuiTablePagination-selectIcon, .MuiTablePagination-select':{display:'none',marginRight:'0px'},maxWidth:'110%',overflow:'hidden'}}
-        labelRowsPerPage='Showing'
-        labelDisplayedRows={({from,to,count})=>getLabelText(from,to,count)}
-      />
-         <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} /></>
+         
+         <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} topicIndex={topicIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} /></>
          :
          appbarText !== 'Qaza Namaz' ? (<Typography style={{textAlign:language?'left':'right',fontWeight:'600',padding:'0px'}}>
           {language?'Ye Website banane ka maqsad sunni musalmano ko unke akhaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}
