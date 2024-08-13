@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, Menu, MenuItem, createTheme } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, ListItemIcon, Menu, MenuItem, createTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
 import MuiAppBar from '@mui/material/AppBar';
@@ -16,25 +16,39 @@ import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TablePagination from '@mui/material/TablePagination';
-
+import Badge from '@mui/material/Badge';
+import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import SampleAccordion from './components/SampleAccordion';
 import SignIn from './signIn';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebaseConfig';
 import SignOut from './SignOut';
 import QazaNamaz from './components/QazaNamaz';
-
-
+import ExampleTree from './components/ExampleTree';
+import WelcomeScreen from './components/WelcomeScreen';
+import logo from './assets/logo.png'
+import StudentPortal from './components/StudentPortal';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
+import EventIcon from '@mui/icons-material/Event';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import GroupIcon from '@mui/icons-material/Group';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 const drawerWidth = 300;
 const BACKGROUND_SELECTED = 'rgb(0,0,0,1)'
 const BACKGROUND_NULL = 'rgb(0,0,0,0)'
 
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  width: 50,
+  height: 50,
+}));
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -43,6 +57,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
+const welcomeContent = `Hamari koshish hai ki logon ke ruhani safar ko behtar banaya jaye Miya Huzoor ke
+ guidance ke tehat aur unki problems ko solve kiya jaye. Saath hi, Quadria silsila ki teachings ko har jagah phelaya jaye aur unki 
+ marifat logon tak pahunchaya jaye, 
+taaki zindagi mein ek naya rang aur sudhar aaye. Is website ko banane ka ek hi maqsad hai ki Allah ka qurb hasil ho jaye aur
+hum apne buzrugo ke raste par yani sirate mustaqeem par aa jaye. Inshallah Taala miya huzoor aur hamarey silsile ke tamam buzrogo ki
+barkat se iska faizaan mashriq wo magrib me phel jaye. Inshallah is website me apko miya huzoor se mutaaliq jo khusoosan India se related hai
+uski malumat mil jayegi . Is website me tarbiyat courses , appointment , miya huzoor ki zindagi ke haalat , events , products aur mazeed bahot si 
+activities available hai . Is website ko Khalifa Miya huzoor Salim Tariqi maintain karte hai . Aur koi bhi payment bina Salim Ashrafi ki
+ijazat ke bagair na karey aur unse personally phone karke hi transaction karey . Unka contact number hai 9576800000 `
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -261,6 +284,7 @@ const SampleDrawer1 = ({app}) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(8);
   const [index,setIndex] = React.useState(-1);
+  const [currentLayout,setCurrentLayout] = useState(<WelcomeScreen  welcomeContent={welcomeContent}/>)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -294,7 +318,6 @@ async function getCities(db) {
   const citiesCol = collection(db, 'cities');
   const citySnapshot = await getDocs(citiesCol);
   const cityList = citySnapshot.docs.map(doc => doc.data());
-  console.log(cityList)
   return cityList;
 }
 useEffect(()=>{getCities(db)},[]);
@@ -311,7 +334,7 @@ useEffect(()=>{getCities(db)},[]);
     setAnchorEl(null);
   };
   const [language,setLanguage] = React.useState(true);
-  const [appbarText, setAppbarText] = React.useState(language?'Intro':'تعارف')
+  const [appbarText, setAppbarText] = React.useState(language?'Welcome':'تعارف')
   const [level,setLevel] = React.useState('Level1');
   const [level1,setLevel1] = React.useState('Roman');
   const [topicIndex,setTopicIndex] = useState(-1);
@@ -362,7 +385,8 @@ useEffect(()=>{getCities(db)},[]);
     {
       title: 'Shijra Shareef',
       urduTitle:"Shijra Shareef",
-      background: BACKGROUND_NULL
+      background: BACKGROUND_NULL,
+      
     },
     {
       title: 'Mamulat',
@@ -394,39 +418,51 @@ useEffect(()=>{getCities(db)},[]);
 "others":[ {
   title: 'Courses',
   urduTitle:"Courses",
-  background: BACKGROUND_NULL
+  background: BACKGROUND_NULL,
+  icon:<MenuBookIcon />
 },
 {
   title: 'Products',
   urduTitle:"Products",
-  background: BACKGROUND_NULL
+  background: BACKGROUND_NULL,
+  icon:<HomeRepairServiceIcon />
 },
 {
   title: 'Events',
   urduTitle:"Events",
-  background: BACKGROUND_NULL
+  background: BACKGROUND_NULL, 
+  icon:<EventIcon />
+
 },
 {
   title: 'Appointment',
   urduTitle:"Appointment",
-  background: BACKGROUND_NULL
+  background: BACKGROUND_NULL,
+  icon:<EventAvailableIcon />
+
 },
 {
   title: 'Student Portal',
   urduTitle:"Student Portal",
-  background: BACKGROUND_NULL
+  background: BACKGROUND_NULL,
+  icon:<GroupIcon />
+
+},
+{
+  title: 'Whatsapp',
+  urduTitle:"Whatsapp",
+  background: BACKGROUND_NULL,
+  icon:<WhatsAppIcon />
+
 }] })
   const handleDrawerClose = () => {
     setOpen(false);
   };
   const getLayout = (value,parentIndex,title) => {
-    console.log('valuevalue');
     setTopicIndex(title);
     let obj ={...listData};
-    console.log(obj,'objjjjj')
     let keys = Object.keys(obj);
     keys.forEach(e=>{
-      console.log(e,parentIndex);
       if(e==parentIndex){
         let oldArray = [...listData[parentIndex]]
         oldArray = oldArray.map((e, i) => {
@@ -452,18 +488,13 @@ useEffect(()=>{getCities(db)},[]);
         obj[e]=oldArray;
       }
     })
-    console.log('objobj',obj);
     setListData(obj)
-    setLevel('Level1');
     setAppbarText(title);
-    // switch (value) {
-    //   case 0: setAppbarText(language?'Shijra Shareef':'نماز'); break;
-    //   case 1: setAppbarText(language?'Courses':"روزہ"); ; break;
-    //   case 2: setAppbarText(language?'Products':"حج" ); ; break;
-    //   case 3: setAppbarText(language?'Events':"زکات"); ; break;
-    //   case 4: setAppbarText(language?'Appointment':"زکات"); ; break;
-    //   case 4: setAppbarText(language?'Student Portal':"زکات"); ; break;
-    // }
+    switch(title){
+      case 'Shijra Shareef':setCurrentLayout(<ExampleTree />) ;break;
+      case 'Student Portal':setCurrentLayout(<StudentPortal />);break;
+    }
+   
   }
   const getAppBarText =(value)=>{
     switch (value) {
@@ -471,7 +502,7 @@ useEffect(()=>{getCities(db)},[]);
       case 1: setAppbarText(language?'Roza':"روزہ"); ; break;
       case 2: setAppbarText(language?'Hujj':"حج" ); ; break;
       case 3: setAppbarText(language?'Zakat':"زکات"); ; break;
-      default :  setAppbarText(language?'Intro':'تعارف');
+      default :  setAppbarText(language?'Welcome':'تعارف');
     }
   }
   const getTopicName = (value)=>{
@@ -524,7 +555,6 @@ useEffect(()=>{getCities(db)},[]);
   }));
   return (
     <div  style={{fontFamily:language?'Montserrat, sans-serif' :'Arabic',padding:'0px'}}>
-      {/* <Button onClick={toggleDrawer(true)}>Open Drawer</Button> */}
       <AppBar position="fixed" sx={{'.MuiToolbar-root':{paddingLeft:language?'10px':'0px',paddingRight:language?'0px':'0px'}}} style={{background:"#000000",color:"#ffffff",justifyContent:'space-between'}} open={open}>
         <Toolbar sx={{'.MuiIconButton-root':{marginRight:language?'16px':'0px'}}} style={{ display:'flex',flexDirection:language?'row':'row-reverse'}} >
           <IconButton
@@ -532,17 +562,37 @@ useEffect(()=>{getCities(db)},[]);
             aria-label="open drawer"
             onClick={toggleDrawer(true)}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{ mr: 0, ...(open && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
+          <Badge
+      color="secondary"
+      overlap="circular"
+      style={{marginLeft:'-20px'}}
+      sx={{
+         
+        '.MuiBadge-dot': {
+          backgroundColor: 'red',
+        },
+      }}
+    >
+      <StyledAvatar alt="Profile Picture" src={logo} />
+    </Badge>
           <Typography variant="h6" style={{width:'250px',fontWeight:'600'}} noWrap component="div">
             {appbarText}
           </Typography>
           
         </Toolbar>
       </AppBar>
-      <Drawer anchor={language?"left":"right"} style={{width:'300px'}} open={openDrawer} onClose={toggleDrawer(false)}>
+      <Drawer anchor={language?"left":"right"} sx={{
+          width: '70vw',  
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: '70vw',  // Must match the width defined above
+            boxSizing: 'border-box',
+          },
+        }} open={openDrawer} onClose={toggleDrawer(false)}>
         <div>
          
           
@@ -570,7 +620,7 @@ useEffect(()=>{getCities(db)},[]);
                 key={text+','+index} 
                 disablePadding>
                   <ListItemButton onClick={() => {setOpenDrawer(false); setValue(index); getLayout(index,'miyahuzzor',text.title);  }}>
-                   
+                    
                     <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100',textAlign:language?'left':'right'}} primary={language?text.title:text.urduTitle} />
                   </ListItemButton>
                 </ListItem>
@@ -578,41 +628,48 @@ useEffect(()=>{getCities(db)},[]);
             </List>
           </AccordionDetails>
         </Accordion>
-        <Divider/>
+        <Divider style={{background:'#000000'}}/>
         <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px',flexDirection:'row-reverse' }}>
               {listData['others'].map((text, index) => (
+                <>
                 <ListItem 
                 sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} 
                 key={text+','+index} 
                 disablePadding>
                   <ListItemButton onClick={() => {setOpenDrawer(false); setValue(index); getLayout(index,'others',text.title);  }}>
+                  <ListItemIcon sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} >
+                     {text.icon}
+                    </ListItemIcon>
+                    <ListItemText sx={{marginLeft:'5px',fontSize:'12px',fontWeight:'bold',textAlign:language?'left':'right'}} primary={language?text.title:text.urduTitle} />
                    
-                    <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100',textAlign:language?'left':'right'}} primary={language?text.title:text.urduTitle} />
                   </ListItemButton>
+
                 </ListItem>
+                 {index !=listData['others'].length-1 && <Divider/>}
+                 </>
               ))}
             </List>
         </div>
       </Drawer>
       <Main id='main-class' open={open}>
         <DrawerHeader />
-        {( appbarText!=='Intro' && appbarText!=='تعارف')&&
+        {( appbarText!=='Welcome' && appbarText!=='تعارف')&&
         accordionData?.[getTopicName(value)]?.[level].length>8
         
               }
         {
-         ( appbarText!=='Intro' && appbarText!=='تعارف' && appbarText != 'Qaza Namaz' )
-         ?
-         <> 
+        //  ( appbarText!=='Intro' && appbarText!=='تعارف' && appbarText != 'Qaza Namaz' )
+        //  ?
+        //  <> 
          
-         <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} topicIndex={topicIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} /></>
-         :
-         appbarText !== 'Qaza Namaz' ? (<Typography style={{textAlign:language?'left':'right',fontWeight:'600',padding:'0px'}}>
-          {language?'Ye Website banane ka maqsad sunni musalmano ko unke akhaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}
-          </Typography>
-          ):
-          <QazaNamaz />
-       
+        //  <SampleAccordion urduNumbers={urduNumbers} start={start} index={index} setIndex={setIndex} topicIndex={topicIndex} accordionData={accordionData?.[getTopicName(value)]?.[level].slice(8*page,8*page+8) || []} language={language} /></>
+        //  :
+        //  appbarText !== 'Qaza Namaz' ? (<Typography style={{textAlign:language?'left':'right',fontWeight:'600',padding:'0px'}}>
+        //   {language?'Ye Website banane ka maqsad sunni musalmano ko unke akhaid aur aamal me maloomat faraham karna hai. Alhamdulilah ye website evolve hoti rahegi':'یہ ویب سائٹ بنانے کا مقصد سنی مسلمانوں کو ان کے عقائد اور اعمال میں معلومات فراہم کرنا ہے۔ الحمدُ للہ، یہ ویب سائٹ مستقبل میں بھی ترقی کرتی رہے گی۔'}
+        //   </Typography>
+        //   ):
+        //   <QazaNamaz />
+        currentLayout
         }
 
       </Main>

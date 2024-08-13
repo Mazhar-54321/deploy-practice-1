@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import SouthIcon from '@mui/icons-material/South';
 const ExampleTree = () => {
     const [data]=useState(['Miya huzoor','khwaja Usman Miya','Shah Muhammad Hasan','Shah Inayat Hussain','Muhammad Nabi raza','Shah Abdul Hayy',
         'Muqlis ur Rahman Jhangir','Shah Imdad Ali','Shah Muhammad Mehdi','Mazhar Hussain',
@@ -18,29 +18,31 @@ const ExampleTree = () => {
         <React.Fragment key={index}>
           <li
             style={{
-              padding: '10px',
-              minWidth: '200px',
+              padding: '8px',
+              minWidth: '170px',
               textAlign: 'center',
-              border: '2px solid #333',
+              border: '2px solid rgba(0, 0, 0, 1)',
               display: 'inline-block',
               position: 'relative',
               backgroundColor: '#fff',
-              borderRadius:'5px'
+              borderRadius:'10px',
+              fontSize:'12px',
+              fontWeight:'bold',
+              opacity:'0.6'
             }}
           >
             {item}
           </li>
 
-          {/* Render the vertical line, but only if it's not the last item */}
           {index < data.length - 1 && (
             <div
               style={{
-                width: '2px',
-                height: '20px',
-                backgroundColor: '#333',
+                height: '25px',
                 margin: '0 auto',
               }}
-            />
+            >
+              <SouthIcon />
+              </div>
           )}
         </React.Fragment>
       ))}

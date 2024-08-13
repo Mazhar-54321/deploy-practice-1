@@ -25,6 +25,9 @@
   height: 40vmin;
   pointer-events: none;
 }
+.custom-toast-container {
+  z-index: 9999; /* Or any higher value */
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

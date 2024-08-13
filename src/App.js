@@ -34,7 +34,7 @@ function App() {
       
       </ThemeProvider>
       <ToastContainer 
-        position="top-right"
+        position="bottom-left"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -43,6 +43,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        className="custom-toast-container"
       />    </div>
   );
 }
