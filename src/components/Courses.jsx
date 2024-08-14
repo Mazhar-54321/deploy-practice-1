@@ -13,14 +13,34 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PlayCircleOutlineSharpIcon from '@mui/icons-material/PlayCircleOutlineSharp';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 import SignOut from '../SignOut';
 import SignIn from '../signIn';
 import { Box, Button, CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import GuideLines from './GuideLines';
+import AddCourseDialog from './AddCourseDialog';
 export default function Courses({userId}) {
     const [loading,setLoading] = React.useState(false);
-    
+    const [age, setAge] = React.useState('');
+    const [dialog,setDialog] = useState({
+        addCourse:false,
+        updateCourse:false,
+        deleteCourse:false
+    })
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+    setDialog((prev)=>({...prev,addCourse:true}));
+    if(event.target.value === '10'){
+        
+    }
+  };
   return (
     <>
     {loading ? <Box
@@ -56,10 +76,30 @@ export default function Courses({userId}) {
 </Button></div>
       </AccordionDetails>
     </Accordion>
-    
+    <>
+    <FormControl sx={{  minWidth: '100%',marginTop:'15px' }}>
+        <InputLabel id="demo-simple-select-helper-label">Select type of operation</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={age}
+          size='small'
+          label="Select type of operation"
+          onChange={handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Add course</MenuItem>
+          <MenuItem value={20}>Update course</MenuItem>
+          <MenuItem value={30}>Delete course</MenuItem>
+        </Select>
+      </FormControl>
+    </>
   </div>
 
 }
+{dialog?.addCourse && <AddCourseDialog  open={true} setOpen={()=>setDialog((prev)=>({...prev,addCourse:false}))}/> }
     </>
   );
 }
