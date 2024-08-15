@@ -651,7 +651,7 @@ useEffect(()=>{getCities(db)},[]);
             </List>
         </div>
       </Drawer>
-      <Main id='main-class' open={open}>
+      <Main id='main-class' style={{padding:'0px',margin:'0px'}} open={open}>
         <DrawerHeader />
         {( appbarText!=='Welcome' && appbarText!=='تعارف')&&
         accordionData?.[getTopicName(value)]?.[level].length>8

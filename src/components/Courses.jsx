@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
-import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore/lite';
+import { doc, getDoc, collection, query, where, getDocs, setDoc } from 'firebase/firestore/lite';
+import { storage, ref, uploadBytes, getDownloadURL } from '../firebaseConfig';
 import { db } from '../firebaseConfig';
+
 
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -41,6 +43,45 @@ export default function Courses({userId}) {
         
     }
   };
+  const saveCourse =async (courseKey,courseData,courseLogo)=>{
+    let url = await handleUpload(courseLogo,courseKey);
+    courseData.url = url
+    courseData.courseKey = courseKey;
+    try {
+      const docRef = doc(db, 'course', courseKey);
+      await setDoc(docRef, courseData);
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
+  
+  }
+  const handleUpload = async (files,courseKey) => {
+    setLoading(true);
+    try {
+        
+        const fileRef = ref(storage, courseKey);
+
+        const snapshot = await uploadBytes(fileRef, files);
+
+        // Get the download URL
+        const downloadURL = await getDownloadURL(snapshot.ref);
+       return downloadURL;
+      
+    } catch (error) {
+      console.error('Error uploading files: ', error);
+      alert('Error uploading files.');
+    } finally {
+      //setUploading(false);
+      setLoading(false);
+    }
+  };
+  const handleCourseData = async (courseKey,courseData) => {
+    try {
+      const docRef = doc(db, 'courseData', courseKey); 
+    } catch (error) {
+      console.error('Error saving document: ', error);
+    }
+  };
   return (
     <>
     {loading ? <Box
@@ -60,7 +101,7 @@ export default function Courses({userId}) {
       <CircularProgress />
     </Box>
     :
-    <div>
+    <div style={{width:'90%',marginTop:'10px'}}>
     <Accordion sx={{ padding: '0px',marginTop:'5px' }}>
       <AccordionSummary
         expandIcon={<ArrowDownwardIcon />}
@@ -77,13 +118,12 @@ export default function Courses({userId}) {
       </AccordionDetails>
     </Accordion>
     <>
-    <FormControl sx={{  minWidth: '100%',marginTop:'15px' }}>
+    <FormControl size='small' sx={{  minWidth: '100%',marginTop:'15px' }}>
         <InputLabel id="demo-simple-select-helper-label">Select type of operation</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
           value={age}
-          size='small'
           label="Select type of operation"
           onChange={handleChange}
         >
@@ -99,7 +139,7 @@ export default function Courses({userId}) {
   </div>
 
 }
-{dialog?.addCourse && <AddCourseDialog  open={true} setOpen={()=>setDialog((prev)=>({...prev,addCourse:false}))}/> }
+{dialog?.addCourse && <AddCourseDialog  open={true} saveCourse={saveCourse} setOpen={()=>{setDialog((prev)=>({...prev,addCourse:false}));setAge('')}}/> }
     </>
   );
 }

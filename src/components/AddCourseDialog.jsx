@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
-import { TextField } from '@mui/material';
+import { Chip, TextField } from '@mui/material';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,21 +16,62 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Classes from './Classes';
+import { styled } from '@mui/material/styles';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-export default function AddCourseDialog({open,setOpen}) {
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+export default function AddCourseDialog({open,setOpen,saveCourse}) {
 
     const [age, setAge] = React.useState('');
     const handleChange = (event) => {
         setAge(event.target.value);
-        if(event.target.value === '10'){
-            
-        }
+       setCourseData((prev)=>({...prev,'category':event.target.value}))
       };
-    const [classesData,setClassesData] = React.useState({})
-
+    const [classesData,setClassesData] = React.useState({});
+    const [isSaveEnabled,setIsSaveEnabled] = React.useState(false);
+    const [courseData,setCourseData] = React.useState({
+      name:'',
+      fees:'',
+      description:'',
+      category:null,
+    })
+    const [courseLogo,setCourseLogo] = React.useState(null)
+    const [courseDataErrorMessages,setCourseDataErrorMessages] = React.useState({
+      name:{
+        error:false,
+        val:'Name must be atleast 5 chars'
+      },
+      fees:{
+        error:false,
+        val:'Fees must be greater than 100'
+      },
+      fees:{
+        error:false,
+        val:'description must be atleast 5 chars'
+      },
+      category:{
+        val:'category cant be empty',
+        error:false
+      }
+    })
+  React.useEffect(()=>{
+    setIsSaveEnabled(courseData?.name?.length>=5 && courseData?.fees>=100 && courseData?.category && courseData?.description?.length>=5 && courseLogo) 
+  },[courseData,courseLogo])
   const handleClose = () => {
     setOpen();
   };
@@ -44,6 +85,14 @@ export default function AddCourseDialog({open,setOpen}) {
     }
     setClassesData((prev)=>({...prev,[newUuid]:classObj}));
   }
+  const saveCourseToDB = ()=>{
+    const courseKey = crypto.randomUUID();
+    saveCourse(courseKey,courseData,courseLogo);
+    handleClose();
+  }
+  const handleFiles = (files)=>{
+    setCourseLogo(files[0])
+}
   return (
     <React.Fragment>
       
@@ -66,37 +115,62 @@ export default function AddCourseDialog({open,setOpen}) {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Cancel
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
+            <Button disabled={!isSaveEnabled}   autoFocus color="inherit" onClick={saveCourseToDB}>
               save
             </Button>
           </Toolbar>
         </AppBar>
-        <TextField sx={{margin:'10px',width:'90%'}} id="outlined-basic" label="Enter course name" size='small'  variant="outlined" />
-        <TextField sx={{margin:'10px',width:'90%'}} id="outlined-basic" label="Enter course fees" size='small'  variant="outlined" />
-        <FormControl sx={{  width: '90%',margin:'10px' }}>
-        <InputLabel id="demo-simple-select-helper-label">Select course category</InputLabel>
+        
+        <TextField 
+        helperText={courseDataErrorMessages.name.val} sx={{margin:'10px',width:'90%'}} id="outlined-basic" onChange={(e)=>setCourseData((prev)=>({...prev,"name":e.target.value}))} label="Enter course name" size='small'  variant="outlined" />
+        
+        <TextField 
+        helperText={courseDataErrorMessages.fees.val} sx={{margin:'10px',width:'90%'}} id="outlined-basic" type='number' onChange={(e)=>setCourseData((prev)=>({...prev,"fees":e.target.value}))} label="Enter course fees" size='small'  variant="outlined" />
+        
+        <FormControl  size='small' sx={{  width: '90%',margin:'10px' }}>
+        <InputLabel   id="demo-simple-select-helper-label">Select course category</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
           value={age}
-          size='small'
           label="Select course category"
           onChange={handleChange}
+          
         >
           
-          <MenuItem value={10}>General</MenuItem>
-          <MenuItem value={20}>Hikmat</MenuItem>
-          <MenuItem value={30}>Ruhaniyat</MenuItem>
+          <MenuItem value={'General'}>General</MenuItem>
+          <MenuItem value={'Hikmat'}>Hikmat</MenuItem>
+          <MenuItem value={'Ruhaniyat'}>Ruhaniyat</MenuItem>
         </Select>
+        <FormHelperText>{'Must select one of the category'}</FormHelperText>
       </FormControl>
-        <TextField sx={{margin:'10px',width:'90%'}} id="outlined-basic" label="Enter course description" size='small' multiline rows={2}  variant="outlined" />
+       
+        <TextField helperText={'Description is mandatory atleast 5 chars'} sx={{margin:'10px',width:'90%'}} onChange={(e)=>setCourseData((prev)=>({...prev,"description":e.target.value}))} id="outlined-basic" label="Enter course description" size='small' multiline rows={2}  variant="outlined" />
        <div style={{width:'90%',display:'flex',justifyContent:'space-between',margin:'10px'}}>
+       <div style={{display:'flex',flexDirection:'column',alignContent:'center'}}><Button
+      component="label"
+      role={undefined}
+      variant="contained"
+      tabIndex={-1}
+      sx={{margin:'10px',textTransform:'none'}}
+      startIcon={<CloudUploadIcon />}
+
+    >
+      Upload
+      <VisuallyHiddenInput  type="file" onChange={(e)=>handleFiles(e.target.files)} />
+      </Button>
+      <span style={{fontSize:'10px',opacity:'0.5',alignContent:'center',margin:'10px',marginTop:'0px'}}> only images and pdf are accepted</span>
+      </div>
+      {courseLogo && <div style={{alignContent:'start',marginTop:'10px'}}><Chip  label={courseLogo?.name} variant='outlined'></Chip></div>}
+       </div>
+       {/* <div style={{width:'90%',display:'flex',justifyContent:'space-between',margin:'10px'}}>
         <Typography variant='h6'>Add classes</Typography>
         <IconButton onClick={addClassHandler} style={{paddingRight:'0px'}} aria-label="delete">
   <AddCircleOutlineIcon />
 </IconButton>
        </div>
-       <div >{Object.keys(classesData).map((e)=><Classes classKey={e} classData={classesData[e]} key={e} setClasses={setClassesData} />)}</div>
+       
+       <div >{Object.keys(classesData).map((e)=><Classes classKey={e} classData={classesData} key={e} setClasses={setClassesData} />)}</div> */}
       </Dialog>
     </React.Fragment>
   );

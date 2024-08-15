@@ -12,15 +12,20 @@ import Typography from '@mui/material/Typography';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PlayCircleOutlineSharpIcon from '@mui/icons-material/PlayCircleOutlineSharp';
-
-import SignOut from '../SignOut';
-import SignIn from '../signIn';
-import { Box, Button, CircularProgress } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import { Box, Button, CircularProgress,ButtonGroup } from '@mui/material';
 import { toast } from 'react-toastify';
 import GuideLines from './GuideLines';
 export default function Students({userId}) {
     const [loading,setLoading] = React.useState(false);
-    
+    const [age, setAge] = React.useState('');
+    const handleChange = (event) => {
+      setAge(event.target.value);
+      
+    };
   return (
     <>
     {loading ? <Box
@@ -56,7 +61,25 @@ export default function Students({userId}) {
 </Button></div>
       </AccordionDetails>
     </Accordion>
-    
+    <>
+    <FormControl size='small' sx={{  minWidth: '100%',marginTop:'15px' }}>
+        <InputLabel id="demo-simple-select-helper-label">Select type of operation</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={age}
+          label="Select type of operation"
+          onChange={handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Add student</MenuItem>
+          <MenuItem value={20}>Update student</MenuItem>
+          <MenuItem value={30}>Delete student</MenuItem>
+        </Select>
+      </FormControl>
+    </>
   </div>
 
 }

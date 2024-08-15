@@ -78,10 +78,10 @@ export default function StudentPortal() {
       <CircularProgress />
     </Box>
     :
-    <>
+    <div style={{padding:'5px'}}>
     <div style={{width:'100%',marginBottom:'10px'}}>{!user ? <SignIn />:<SignOut  user={user}/>}</div>
     {userStatus?.admin?.email && <Admin userId ={userStatus?.admin?.email} />}
-    </>
+    </div>
     }
     </>
   );
