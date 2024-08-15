@@ -101,7 +101,7 @@ export default function Courses({userId}) {
       <CircularProgress />
     </Box>
     :
-    <div style={{width:'90%',marginTop:'10px'}}>
+    <div style={{width:'98%',marginTop:'10px'}}>
     <Accordion sx={{ padding: '0px',marginTop:'5px' }}>
       <AccordionSummary
         expandIcon={<ArrowDownwardIcon />}
@@ -126,6 +126,14 @@ export default function Courses({userId}) {
           value={age}
           label="Select type of operation"
           onChange={handleChange}
+          MenuProps={{
+            PaperProps: {
+              style: {
+                transform: ' translateX(-10px)'
+              },
+            },
+           
+          }}
         >
           <MenuItem value="">
             <em>None</em>

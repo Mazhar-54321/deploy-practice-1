@@ -18,6 +18,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Classes from './Classes';
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { toast } from 'react-toastify';
 
 
 
@@ -91,7 +92,12 @@ export default function AddCourseDialog({open,setOpen,saveCourse}) {
     handleClose();
   }
   const handleFiles = (files)=>{
+    console.log(files[0]);
+    if(files[0].type.includes("image")){
     setCourseLogo(files[0])
+    }else{
+      toast.error('only images are accepted');
+    }
 }
   return (
     <React.Fragment>
@@ -135,6 +141,14 @@ export default function AddCourseDialog({open,setOpen,saveCourse}) {
           value={age}
           label="Select course category"
           onChange={handleChange}
+          MenuProps={{
+            PaperProps: {
+              style: {
+                transform: ' translateX(-5px)'
+              },
+            },
+           
+          }}
           
         >
           
@@ -156,13 +170,14 @@ export default function AddCourseDialog({open,setOpen,saveCourse}) {
       startIcon={<CloudUploadIcon />}
 
     >
-      Upload
+      Upload Course Image
       <VisuallyHiddenInput  type="file" onChange={(e)=>handleFiles(e.target.files)} />
       </Button>
-      <span style={{fontSize:'10px',opacity:'0.5',alignContent:'center',margin:'10px',marginTop:'0px'}}> only images and pdf are accepted</span>
+      <span style={{fontSize:'10px',opacity:'0.5',alignContent:'center',margin:'10px',marginTop:'0px'}}> only images are accepted</span>
       </div>
-      {courseLogo && <div style={{alignContent:'start',marginTop:'10px'}}><Chip  label={courseLogo?.name} variant='outlined'></Chip></div>}
+     
        </div>
+       {courseLogo && <div style={{alignContent:'start',margin:'10px'}}><Chip  label={courseLogo?.name} variant='outlined'></Chip></div>}
        {/* <div style={{width:'90%',display:'flex',justifyContent:'space-between',margin:'10px'}}>
         <Typography variant='h6'>Add classes</Typography>
         <IconButton onClick={addClassHandler} style={{paddingRight:'0px'}} aria-label="delete">

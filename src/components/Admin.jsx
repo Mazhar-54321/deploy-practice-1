@@ -18,7 +18,7 @@ function CustomTabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 0 }}>{children}</Box>}
     </div>
   );
 }
@@ -44,7 +44,7 @@ export default function Admin({userId}) {
   };
 
   return (
-    <Box sx={{ width: '100%'}}>
+    <Box sx={{ width: '100%',padding:'0px'}}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider',padding:'5px' }}>
         <Tabs variant='scrollable' scrollButtons='auto' value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab style={{textTransform:'none',fontWeight:'bolder'}} label="Course" {...a11yProps(0)} />
