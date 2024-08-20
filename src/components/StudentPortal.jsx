@@ -10,6 +10,7 @@ import SignIn from '../signIn';
 import { Box, CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import Admin from './Admin';
+import StudentPage from './StudentPage';
 export default function StudentPortal() {
     const [user, setUser] = useState(null);
     const [loading,setLoading] = React.useState(false);
@@ -46,10 +47,10 @@ export default function StudentPortal() {
            const docSnap = await getDoc(docRef1);
            
            if(docSnap.exists()){
-            setUserStatus((prev)=>({...prev,student:{email:userId}}))
+            setUserStatus((prev)=>({...prev,student:{email:userId},admin:{email:null}}))
            }else{
             toast.error(`${userId} is not registered as a student, please contact Salim Ashrafi @9576800000`)
-
+            setUserStatus((prev)=>({...prev,student:{email:null},admin:{email:null}}))
            }
            
           }
@@ -80,7 +81,8 @@ export default function StudentPortal() {
     :
     <div style={{padding:'5px'}}>
     <div style={{width:'100%',marginBottom:'10px'}}>{!user ? <SignIn />:<SignOut  user={user}/>}</div>
-    {userStatus?.admin?.email && <Admin userId ={userStatus?.admin?.email} />}
+    {userStatus?.admin?.email && user&& <Admin userId ={userStatus?.admin?.email} />}
+    {userStatus?.admin?.email ==null && userStatus?.student?.email && user &&  <StudentPage userId={userStatus?.student?.email} />}
     </div>
     }
     </>

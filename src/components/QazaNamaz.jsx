@@ -98,26 +98,20 @@ export default function DatePickerValue() {
   const savePerformance =async (performance)=>{
     setLoading(true);
     setIsPerformanceDialogOpen(false);
-    console.log('performance',performance)
     const docRef = doc(db, "qaza_namaz", user?.email);
     try{
     if(!docRef){
-     console.log('not available')
     }else{
       let updatedData = {...qazaNamazData};
       let data = updatedData.data.filter((e)=>e.date== performance.date)[0];
       if(data){
-        // data.days += performance.days;
-        // console.log(data);1
-
-        // data.individual = data.individual.map((e,i)=>(e+(performance.individual[i]))); 
+        
         updatedData.data = updatedData.data.map((e=>e.date== performance.date?performance:e));
       }else{
         let semiData = updatedData.data
         semiData.push(performance);
         updatedData.data =  semiData;
       }
-      console.log('updatedDaat',updatedData)
       try{
       await setDoc(docRef, updatedData);
      const docSnap = await getDoc(docRef)

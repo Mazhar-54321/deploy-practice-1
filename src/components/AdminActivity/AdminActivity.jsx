@@ -21,7 +21,6 @@ export const AdminActivity = () => {
                   born: 1912
                 });
               
-                console.log("Document written with ID: ", docRef.id);
               } catch (e) {
                 console.error("Error adding document: ", e);
               }

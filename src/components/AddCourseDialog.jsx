@@ -63,7 +63,7 @@ export default function AddCourseDialog({open,setOpen,saveCourse}) {
       },
       fees:{
         error:false,
-        val:'description must be atleast 5 chars'
+        val:'fees must be greater than 100'
       },
       category:{
         val:'category cant be empty',
@@ -78,7 +78,6 @@ export default function AddCourseDialog({open,setOpen,saveCourse}) {
   };
   const addClassHandler =()=>{
     const newUuid = crypto.randomUUID();
-    console.log(newUuid);
     let classObj ={
       className : '',
       videoLink:'',
@@ -92,7 +91,6 @@ export default function AddCourseDialog({open,setOpen,saveCourse}) {
     handleClose();
   }
   const handleFiles = (files)=>{
-    console.log(files[0]);
     if(files[0].type.includes("image")){
     setCourseLogo(files[0])
     }else{
@@ -126,13 +124,6 @@ export default function AddCourseDialog({open,setOpen,saveCourse}) {
             </Button>
           </Toolbar>
         </AppBar>
-        
-        <TextField 
-        helperText={courseDataErrorMessages.name.val} sx={{margin:'10px',width:'90%'}} id="outlined-basic" onChange={(e)=>setCourseData((prev)=>({...prev,"name":e.target.value}))} label="Enter course name" size='small'  variant="outlined" />
-        
-        <TextField 
-        helperText={courseDataErrorMessages.fees.val} sx={{margin:'10px',width:'90%'}} id="outlined-basic" type='number' onChange={(e)=>setCourseData((prev)=>({...prev,"fees":e.target.value}))} label="Enter course fees" size='small'  variant="outlined" />
-        
         <FormControl  size='small' sx={{  width: '90%',margin:'10px' }}>
         <InputLabel   id="demo-simple-select-helper-label">Select course category</InputLabel>
         <Select
@@ -158,6 +149,13 @@ export default function AddCourseDialog({open,setOpen,saveCourse}) {
         </Select>
         <FormHelperText>{'Must select one of the category'}</FormHelperText>
       </FormControl>
+        <TextField 
+        helperText={courseDataErrorMessages.name.val} sx={{margin:'10px',width:'90%'}} id="outlined-basic" onChange={(e)=>setCourseData((prev)=>({...prev,"name":e.target.value}))} label="Enter course name" size='small'  variant="outlined" />
+        
+        <TextField 
+        helperText={courseDataErrorMessages.fees.val} sx={{margin:'10px',width:'90%'}} id="outlined-basic" type='number' onChange={(e)=>setCourseData((prev)=>({...prev,"fees":e.target.value}))} label="Enter course fees" size='small'  variant="outlined" />
+        
+        
        
         <TextField helperText={'Description is mandatory atleast 5 chars'} sx={{margin:'10px',width:'90%'}} onChange={(e)=>setCourseData((prev)=>({...prev,"description":e.target.value}))} id="outlined-basic" label="Enter course description" size='small' multiline rows={2}  variant="outlined" />
        <div style={{width:'90%',display:'flex',justifyContent:'space-between',margin:'10px'}}>

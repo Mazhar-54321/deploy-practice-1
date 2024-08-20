@@ -27,11 +27,9 @@ const VisuallyHiddenInput = styled('input')({
   });
 
 export default function Classes({classKey,classData,setClasses,saveClassData,deleteClass,updateClassData,deleteFileFromDB}) {
-  console.log('classData1',classData);
     const [data,setData] = React.useState(classData);
     const handleFiles = (files)=>{
       let filesData = Array.from(classData.fileURLS);
-      console.log(Array.from(files).map(e=>e.type));
       let selectedFiles = Array.from(files).filter((e)=>!filesData.some(el=>el.name==e.name)).filter((e)=>e.type.includes('pdf')||e.type.includes('image'))
       if(Array.from(files).length != selectedFiles.length){
         toast.error('duplicate files and non pdf/images are discarded');
@@ -43,7 +41,6 @@ export default function Classes({classKey,classData,setClasses,saveClassData,del
     }
     const handleFileDelete = (fileName)=>{
       let filesArray =Array.from(classData.fileURLS);
-      console.log(classData?.add,'classData?.add');
       let fileObj = filesArray.filter((e)=>e.name==fileName)[0]
       filesArray = filesArray.filter((e)=>e.name!=fileName);
 
@@ -67,7 +64,7 @@ export default function Classes({classKey,classData,setClasses,saveClassData,del
           id="panel1-header"
         >
          <div style={{display:'flex',width:'100%'}}> <Typography style={{width:'60%',alignContent:'center'}}>{classData?.name}</Typography>
-         <Button disabled={!(classData?.name?.length>=4 && classData?.videoLink.length>0 && classData?.fileURLS.length>0)} onClick={()=>{classData?.add?saveClassData(classData):updateClassData(classKey,classData)}} variant='text' style={{textTransform:'none'}}>{classData?.add?'Save':'Update'}</Button>
+         <Button disabled={!(classData?.name?.length>=4 && classData?.videoLink.length>0)} onClick={()=>{classData?.add?saveClassData(classData):updateClassData(classKey,classData)}} variant='text' style={{textTransform:'none'}}>{classData?.add?'Save':'Update'}</Button>
          {classData?.add && <IconButton onClick={handleDelete} style={{paddingRight:'0px',width:'10%'}} aria-label="delete">
   <DeleteIcon />
 </IconButton>}

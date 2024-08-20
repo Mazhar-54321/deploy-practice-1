@@ -23,14 +23,12 @@ export default function SampleAccordion({urduNumbers,start,language,accordionDat
     newElements[panel] = !newElements[panel]
     setElements(newElements)
   };
- console.log(index,'indexindex');
   const AccordionStyle = {
     '&:before': {
       backgroundColor: 'transparent !important',
     },
   };
   const getQuestionLabel =(question,index)=>{
-    console.log(question,index);
     if(language){
       return `Q${start+index}) ${question}`
     }else{

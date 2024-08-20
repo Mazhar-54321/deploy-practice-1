@@ -5,6 +5,7 @@ import { auth } from '../firebaseConfig';
 import { doc, getDoc, collection, query, where, getDocs, setDoc } from 'firebase/firestore/lite';
 import { storage, ref, uploadBytes, getDownloadURL } from '../firebaseConfig';
 import { db } from '../firebaseConfig';
+import dayjs from 'dayjs';
 
 
 import Accordion from '@mui/material/Accordion';
@@ -47,6 +48,7 @@ export default function Courses({userId}) {
     let url = await handleUpload(courseLogo,courseKey);
     courseData.url = url
     courseData.courseKey = courseKey;
+    courseData.dateTime = dayjs().valueOf();
     try {
       const docRef = doc(db, 'course', courseKey);
       await setDoc(docRef, courseData);

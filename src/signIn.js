@@ -12,7 +12,6 @@ function SignIn() {
     try {
       
       const result = await signInWithPopup(auth, googleProvider);
-      console.log(result);
     } catch (error) {
       setLoader(false);
     }

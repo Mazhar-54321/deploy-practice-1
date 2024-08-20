@@ -12,7 +12,6 @@ const CurrentTargetDialog = ({ open,closePerformanceDialog,savePerformance,qazaN
   const [days,setDays]= useState(0);
   useEffect(()=>{
     let formattedDate = dayjs(value).format("DD-MMMM-YYYY")
-    console.log(formattedDate,qazaNamazData.date)
     let updatedData = qazaNamazData?.filter(e=>e.date === formattedDate)[0];
     if(updatedData){
        setCurrentValues(updatedData.individual);

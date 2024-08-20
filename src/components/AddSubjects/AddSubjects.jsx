@@ -37,7 +37,6 @@ export const AddSubjects = () => {
             let document = doc(db, `${subjectObj.sem}`,`${e}`);
             batch.set(document, {subject: e});
           })
-          console.log(batch)
          await batch.commit()
          showSnackbar(true,'success','Data Uploaded Successfully')
          setOpen(false)

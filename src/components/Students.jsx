@@ -19,11 +19,18 @@ import MenuItem from '@mui/material/MenuItem';
 import { Box, Button, CircularProgress,ButtonGroup } from '@mui/material';
 import { toast } from 'react-toastify';
 import GuideLines from './GuideLines';
+import AddStudentDialog from './AddStudentDialog';
 export default function Students({userId}) {
     const [loading,setLoading] = React.useState(false);
     const [age, setAge] = React.useState('');
+    const [dialog,setDialog] = useState({
+      addCourse:false,
+      updateCourse:false,
+      deleteCourse:false
+  })
     const handleChange = (event) => {
       setAge(event.target.value);
+      setDialog((prev)=>({...prev,addCourse:true}));
       
     };
   return (
@@ -80,6 +87,8 @@ export default function Students({userId}) {
         </Select>
       </FormControl>
     </>
+    {dialog?.addCourse && <AddStudentDialog isUpdate={age=='20'}  open={true} setOpen={()=>setDialog((prev)=>({...prev,addCourse:false}))} /> }
+
   </div>
 
 }
