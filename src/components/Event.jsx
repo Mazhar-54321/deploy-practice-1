@@ -24,6 +24,7 @@ import {
   CardMedia,
   Typography,
   IconButton,
+  Fade,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
@@ -41,7 +42,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-
+import InboxIcon from "@mui/icons-material/Inbox";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -194,15 +195,21 @@ const AddEvent = ({
   }, []);
   return loading ? (
     <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh", // Full screen height
-      }}
-    >
-      <CircularProgress />
-    </Box>
+            sx={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(255, 255, 255, 0.8)',
+              zIndex: 1200,
+            }}
+          >
+            <CircularProgress />
+          </Box>
   ) : (
     <Box>
       {showSubmitButton && (
@@ -343,6 +350,16 @@ const EditOrDeleteEvent = ({ eventData = [], refresh }) => {
 
   const [eventName, setEventName] = useState("");
   const [hideIds, setHideIds] = useState({});
+  const deleteEvent = async (eventId) => {
+  try {
+    const eventRef = doc(db, "events", eventId); // Document reference banaya
+    await deleteDoc(eventRef); // Document delete kiya
+    refresh();
+  } catch (error) {
+    console.error("Error deleting event:", error);
+    
+  }
+}
   const getLayout = () => {
     if (status?.name?.length === 0) {
       return eventData
@@ -458,7 +475,7 @@ const EditOrDeleteEvent = ({ eventData = [], refresh }) => {
                 <Button
                   variant="outlined"
                   startIcon={<DeleteIcon />}
-                  onClick={() => {}}
+                  onClick={() => {deleteEvent(event.uuid)}}
                   sx={{
                     borderRadius: 1,
                     textTransform: "none",
@@ -502,6 +519,43 @@ const EditOrDeleteEvent = ({ eventData = [], refresh }) => {
     </>
   );
 };
+const NoDataWidget = () => {
+    return (
+      <Fade in={true} timeout={1000}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "50vh",
+            bgcolor: "#f5f5f5",
+            borderRadius: 2,
+            p: 3,
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+            maxWidth: 400,
+            mx: "auto",
+          }}
+        >
+          <InboxIcon sx={{ fontSize: 80, color: "#757575", mb: 2 }} />
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", color: "#424242", mb: 1 }}
+          >
+            No Data Found
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{ color: "#757575", textAlign: "center", mb: 3 }}
+          >
+            Looks like there are no events to display right now. Add some events or
+            try refreshing!
+          </Typography>
+          
+        </Box>
+      </Fade>
+    );
+  };
 const Event = () => {
   const [loading, setLoading] = useState(false);
   const [currentState, setCurrentState] = useState("Add Event");
@@ -530,15 +584,21 @@ const Event = () => {
   }, [currentState]);
   return loading ? (
     <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh", // Full screen height
-      }}
-    >
-      <CircularProgress />
-    </Box>
+            sx={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(255, 255, 255, 0.8)',
+              zIndex: 1200,
+            }}
+          >
+            <CircularProgress />
+          </Box>
   ) : (
     <Box
       sx={{
@@ -576,7 +636,7 @@ const Event = () => {
         (Boolean(events?.length) ? (
           <EditOrDeleteEvent eventData={events} refresh={fetchEvents} />
         ) : (
-          <Box>No data</Box>
+          <NoDataWidget />
         ))}
     </Box>
   );
