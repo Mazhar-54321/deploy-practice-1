@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Courses from './Courses';
 import Students from './Students';
 import ClassesAndCourses from './ClassesAndCourses';
+import Activity from './Activity';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,7 +68,7 @@ export default function Admin({userId}) {
         Product
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        Event
+        <Activity />
       </CustomTabPanel>
     </Box>
   );

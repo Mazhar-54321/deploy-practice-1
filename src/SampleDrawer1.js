@@ -41,6 +41,7 @@ import EventIcon from '@mui/icons-material/Event';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import GroupIcon from '@mui/icons-material/Group';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { DisplayCourses } from './components/DisplayCourses';
 const drawerWidth = 300;
 const BACKGROUND_SELECTED = 'rgb(0,0,0,1)'
 const BACKGROUND_NULL = 'rgb(0,0,0,0)'
@@ -57,7 +58,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
-const welcomeContent = `Hamari koshish hai ki logon ke ruhani safar ko behtar banaya jaye Miya Huzoor ke
+const welcomeContent = `Hamari koshish hai ki logo ke ruhani safar ko behtar banaya jaye Miya Huzoor ke
  guidance ke tehat aur unki problems ko solve kiya jaye. Saath hi, Quadria silsila ki teachings ko har jagah phelaya jaye aur unki 
  marifat logon tak pahunchaya jaye, 
 taaki zindagi mein ek naya rang aur sudhar aaye. Is website ko banane ka ek hi maqsad hai ki Allah ka qurb hasil ho jaye aur
@@ -493,6 +494,7 @@ useEffect(()=>{getCities(db)},[]);
     switch(title){
       case 'Shijra Shareef':setCurrentLayout(<ExampleTree />) ;break;
       case 'Student Portal':setCurrentLayout(<StudentPortal />);break;
+      case 'Courses':setCurrentLayout(<DisplayCourses />); break;
     }
    
   }
