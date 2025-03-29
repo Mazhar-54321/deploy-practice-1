@@ -43,7 +43,7 @@ export default function StudentPortal() {
       let docRef = doc(db, "admin", userId);
 
       const docSnap = await getDoc(docRef);
-
+      console.log()
       if (docSnap.exists()) {
         setUserStatus((prev) => ({ ...prev, admin: { email: userId } }));
       } else {

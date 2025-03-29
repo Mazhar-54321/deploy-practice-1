@@ -504,7 +504,7 @@ const EditOrDeleteEvent = ({ eventData = [], refresh }) => {
 };
 const Event = () => {
   const [loading, setLoading] = useState(false);
-  const [currentState, setCurrentState] = useState(null);
+  const [currentState, setCurrentState] = useState("Add Event");
   const [events, setEvents] = useState([]);
 
   const fetchEvents = async () => {
