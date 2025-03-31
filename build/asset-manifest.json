@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e57471a5.css",
+    "main.js": "/static/js/main.50b6e201.js",
+    "static/js/206.66019059.chunk.js": "/static/js/206.66019059.chunk.js",
+    "static/media/Amazon Ember.ttf": "/static/media/Amazon Ember.4c5f8783fc6015d993cd.ttf",
+    "static/media/logo.png": "/static/media/logo.0c00e794bb1daa2a12da.png",
+    "static/media/NotoNaskhArabic-Regular.ttf": "/static/media/NotoNaskhArabic-Regular.2ff480cc600bf20dd0d1.ttf",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.e57471a5.css",
+    "static/js/main.50b6e201.js"
+  ]
+}

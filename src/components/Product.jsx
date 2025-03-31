@@ -51,10 +51,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { TransitionProps } from "@mui/material/transitions";
-
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { TransitionProps } from "@mui/material/transitions";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -70,15 +69,14 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 const defaultState = {
-  eventName: "",
-  country: "India",
-  city: "",
-  date: new Date(),
+  productName: "",
   filesData: [],
-  address: "",
+  description: "",
+  category:"medicine",
+  price:1000
 };
-const AddEvent = ({
-  eventData = defaultState,
+const AddProduct = ({
+  productData = defaultState,
   isUpdate = false,
   goback = () => {},
 }) => {
@@ -86,7 +84,7 @@ const AddEvent = ({
     open: false,
     message: "",
   });
-  const [state, setState] = useState(eventData);
+  const [state, setState] = useState(productData);
   const [loading, setLoading] = useState(false);
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const handleDelete = (chipToDelete) => {
@@ -119,7 +117,7 @@ const AddEvent = ({
     setState((prev) => ({ ...prev, [fieldName]: fieldValue }));
   };
 
-  const handleUpload = async (files, courseKey = "Events") => {
+  const handleUpload = async (files, courseKey = "products") => {
     try {
       if (!files || !Array.isArray(files) || files.length === 0) {
         throw new Error("No files provided for upload.");
@@ -145,35 +143,34 @@ const AddEvent = ({
     }
   };
 
-  const saveEventToDB = async (eventData) => {
+  const saveProductToDB = async (productData) => {
     setLoading(true);
     try {
-      if (!eventData || !eventData.filesData) {
-        throw new Error("Event data or files missing.");
+      if (!productData || !productData.filesData) {
+        throw new Error("Product data or files missing.");
       }
 
       // Files upload karo aur URLs lo
-      const urls = await handleUpload(eventData.filesData);
+      const urls = await handleUpload(productData.filesData);
 
-      // Clean eventData - sirf Firestore-compatible fields rakho
-      const cleanEventData = {
-        eventName: eventData.eventName || "Unnamed Event",
-        country: eventData.country || "",
-        city: eventData.city || "",
-        address: eventData.address || "",
+      // Clean productData - sirf Firestore-compatible fields rakho
+      const cleanproductData = {
+        productName: productData.productName || "Unnamed Product",
+        description: productData.description || "",
+        price:productData.price,
+        category:productData.category,
         files: urls,
-        uuid: isUpdate ? eventData?.uuid : Date.now().toString(),
+        uuid: isUpdate ? productData?.uuid : Date.now().toString(),
         createdAt: new Date().toISOString(),
-        date:eventData.date.toISOString()
       };
 
       // Firestore mein save karo
-      const docRef = doc(db, "events", cleanEventData.uuid);
-      await setDoc(docRef, cleanEventData);
+      const docRef = doc(db, "products", cleanproductData.uuid);
+      await setDoc(docRef, cleanproductData);
       if (isUpdate) {
         goback();
       }
-      setSnackbar({ open: true, message: "Event saved successfully" });
+      setSnackbar({ open: true, message: "Product saved successfully" });
 
       setState(defaultState);
     } catch (error) {
@@ -194,18 +191,18 @@ const AddEvent = ({
 
   useEffect(() => {
     setShowSubmitButton(
-      state?.eventName?.trim() &&
-        state?.country?.trim() &&
-        state?.address?.trim() &&
-        state?.city?.trim() &&
+      state?.productName?.trim() &&
+        state?.description?.trim() &&
+        state?.category?.trim() &&
+        state?.price>0 &&
         Boolean(state?.filesData?.length)
     );
   }, [state]);
   useEffect(() => {
     if (isUpdate) {
       setState({
-        ...eventData,
-        filesData: eventData?.files?.map((el) => ({ name: el })),
+        ...productData,
+        filesData: productData?.files?.map((el) => ({ name: el })),
       });
     }
   }, []);
@@ -241,7 +238,7 @@ const AddEvent = ({
             </IconButton>
           )}
           <Button
-            onClick={() => saveEventToDB(state)}
+            onClick={() => saveProductToDB(state)}
             variant="outlined"
             sx={{ textTransform: "none" }}
             startIcon={<PublishOutlinedIcon />}
@@ -251,72 +248,49 @@ const AddEvent = ({
         </div>
       )}
       <TextField
-        label="Event name"
+        label="Product name"
         id="outlined-size-small"
-        value={state.eventName}
-        onChange={(event) => handleStateChange("eventName", event.target.value)}
+        value={state.productName}
+        onChange={(event) => handleStateChange("productName", event.target.value)}
         size="small"
         fullWidth
         sx={{ mb: 2, mt: 2 }} // Margin bottom
       />
       <TextField
-        label="Country"
+        label="Product category"
         id="outlined-size-small"
-        value={state.country}
-        onChange={(event) => handleStateChange("country", event.target.value)}
+        value={state.category}
+        onChange={(event) => handleStateChange("category", event.target.value)}
         size="small"
         fullWidth
         sx={{ mb: 2 }} // Margin bottom
       />
+     
       <TextField
-        label="City"
+        label="Product description"
         id="outlined-size-small"
-        value={state.city}
-        onChange={(event) => handleStateChange("city", event.target.value)}
+        value={state.description}
+        onChange={(event) => handleStateChange("description", event.target.value)}
         size="small"
         fullWidth
+        multiline
+        rows={4}
+        maxRows={4}
+        
         sx={{ mb: 2 }} // Margin bottom
       />
-      <TextField
-        label="Address"
+<TextField
+        label="Product price"
         id="outlined-size-small"
-        value={state.address}
-        onChange={(event) => handleStateChange("address", event.target.value)}
+        value={state.price}
+        onChange={(event) => handleStateChange("price", event.target.value)}
         size="small"
+        type="number"
         fullWidth
         sx={{ mb: 2 }} // Margin bottom
       />
 
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Box sx={{ mb: 1 }}>
-          <DatePicker
-            label="Select Date"
-            format="DD-MMM-YYYY"
-            value={dayjs(state?.date)}
-            maxDate={dayjs(new Date())}
-            onChange={(newValue) => handleStateChange("date", newValue)}
-            sx={{
-              width: "100%",
-              mb: 1,
-              "& .MuiInputBase-root": {
-                height: "40px", // Match the height of a small TextField
-                fontSize: "0.875rem", // Adjust font size to match TextField's smaller size
-                padding: "0 12px", // Adjust padding to reduce input height
-              },
-              "& .MuiOutlinedInput-notchedOutline": {
-                borderRadius: "4px", // Rounded corners
-              },
-              "& .MuiInputBase-input": {
-                padding: "10px 0", // Adjust input padding for better height
-              },
-              "& .MuiFormLabel-root": {
-                top: "0px", // Adjust label position if necessary
-                color: "black",
-              },
-            }}
-          />
-        </Box>
-      </LocalizationProvider>
+      
       <Button
         component="label"
         role={undefined}
@@ -352,13 +326,14 @@ const AddEvent = ({
   );
 };
 
-export const EditOrDeleteEvent = ({
-  eventData = [],
+
+export const EditOrDeleteProduct = ({
+  productData = [],
   refresh,
   showEditDelete = false,
 }) => {
   const [status, setStatus] = useState({ name: "", data: {} });
-  const [eventName, setEventName] = useState("");
+  const [productName, setProductName] = useState("");
   const [hideIds, setHideIds] = useState({});
   const [open, setIsOpen] = useState(false);
   const [eventId, setEventId] = useState("");
@@ -367,15 +342,11 @@ export const EditOrDeleteEvent = ({
   const [selectedImages, setSelectedImages] = useState([]); // Images for slider
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // Current image index
 
-  useEffect(() => {
-    console.log(imagesLoader, "imagesLoader");
-  }, [imagesLoader]);
-
   const handleClose = () => setIsOpen(false);
 
   const deleteEvent = async (eventId) => {
     try {
-      const eventRef = doc(db, "events", eventId);
+      const eventRef = doc(db, "products", eventId);
       await deleteDoc(eventRef);
       refresh();
     } catch (error) {
@@ -409,12 +380,12 @@ export const EditOrDeleteEvent = ({
 
   const getLayout = () => {
     if (status?.name?.length === 0) {
-      return eventData
+      return productData
         ?.filter((el) =>
-          el?.eventName
+          el?.productName
             ?.trim()
             ?.toLowerCase()
-            ?.includes(eventName?.trim()?.toLowerCase())
+            ?.includes(productName?.trim()?.toLowerCase())
         )
         ?.map((event) => (
           <Card
@@ -429,17 +400,16 @@ export const EditOrDeleteEvent = ({
           >
             <CardContent>
               <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
-                {event.eventName}
+                {event.productName}
               </Typography>
               <Typography variant="body1" sx={{ color: "#212121", mb: 1 }}>
-                <strong>Location:</strong> {event.city}, {event.country}
+                <strong>Product description:</strong> {event.description}
               </Typography>
               <Typography variant="body1" sx={{ color: "#212121", mb: 1 }}>
-                <strong>Address:</strong> {event.address}
+                <strong>Price:</strong> {event.price}INR
               </Typography>
               <Typography variant="body1" sx={{ color: "#212121", mb: 1 }}>
-                <strong>Created At:</strong>{" "}
-                {dayjs(new Date(event.date)).format("DD-MMM-YYYY")}
+                <strong>Category:</strong> {event.category}
               </Typography>
 
               {event.files && Array.isArray(event.files) && (
@@ -500,7 +470,7 @@ export const EditOrDeleteEvent = ({
                             key={fileUrl}
                             component="img"
                             image={fileUrl}
-                            alt={`Event Image ${index + 1}`}
+                            alt={`Product Image ${index + 1}`}
                             sx={{
                               width: 100,
                               height: 100,
@@ -528,46 +498,44 @@ export const EditOrDeleteEvent = ({
                 </Box>
               )}
 
-              {showEditDelete &&
-                event.files.filter((el) => imagesLoader[el]).length ===
-                  event.files.length && (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      gap: 1,
-                      mt: 2,
-                    }}
+              {showEditDelete && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    gap: 1,
+                    mt: 2,
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    startIcon={<EditIcon />}
+                    onClick={() => setStatus({ name: "update", data: event })}
+                    sx={{ borderRadius: 1, textTransform: "none" }}
                   >
-                    <Button
-                      variant="outlined"
-                      startIcon={<EditIcon />}
-                      onClick={() => setStatus({ name: "update", data: event })}
-                      sx={{ borderRadius: 1, textTransform: "none" }}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      startIcon={<DeleteIcon />}
-                      onClick={() => {
-                        setIsOpen(true);
-                        setEventId(event.uuid);
-                      }}
-                      sx={{ borderRadius: 1, textTransform: "none" }}
-                    >
-                      Delete
-                    </Button>
-                  </Box>
-                )}
+                    Edit
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    startIcon={<DeleteIcon />}
+                    onClick={() => {
+                      setIsOpen(true);
+                      setEventId(event.uuid);
+                    }}
+                    sx={{ borderRadius: 1, textTransform: "none" }}
+                  >
+                    Delete
+                  </Button>
+                </Box>
+              )}
             </CardContent>
           </Card>
         ));
     }
     if (status?.name === "update") {
       return (
-        <AddEvent
-          eventData={status?.data}
+        <AddProduct
+          productData={status?.data}
           isUpdate={true}
           goback={() => {
             setStatus({ name: "" });
@@ -578,14 +546,14 @@ export const EditOrDeleteEvent = ({
     }
   };
 
-  const handleEventChange = (val) => setEventName(val);
+  const handleEventChange = (val) => setProductName(val);
 
   return (
     <>
-      {eventData?.length > 5 && (
+      {productData?.length > 5 && (
         <TextField
-          label="Search Event by event name"
-          value={eventName}
+          label="Search Product by Product name"
+          value={productName}
           onChange={(event) => handleEventChange(event.target.value)}
           size="small"
           sx={{ mb: 2, mt: 2 }}
@@ -593,7 +561,7 @@ export const EditOrDeleteEvent = ({
         />
       )}
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{"Are You sure you want to delete Event?"}</DialogTitle>
+        <DialogTitle>{"Are You sure you want to delete Product?"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             This action can't be rolled back and data can't be retrieved
@@ -628,7 +596,7 @@ export const EditOrDeleteEvent = ({
         fullWidth
       >
         <DialogTitle>
-          Event Image Preview ({currentImageIndex + 1} / {selectedImages.length})
+          Image Preview ({currentImageIndex + 1} / {selectedImages.length})
         </DialogTitle>
         <DialogContent sx={{ p: 0, position: "relative" }}>
           <Box
@@ -721,37 +689,37 @@ export const NoDataWidget = () => {
           variant="body1"
           sx={{ color: "#757575", textAlign: "center", mb: 3 }}
         >
-          Looks like there are no events to display right now. Add some events
+          Looks like there are no products to display right now. Add some products
           or try refreshing!
         </Typography>
       </Box>
     </Fade>
   );
 };
-const Event = () => {
+const Product = () => {
   const [loading, setLoading] = useState(false);
-  const [currentState, setCurrentState] = useState("Add Event");
-  const [events, setEvents] = useState([]);
+  const [currentState, setCurrentState] = useState("Add Product");
+  const [products, setProducts] = useState([]);
 
-  const fetchEvents = async () => {
+  const fetchProducts = async () => {
     setLoading(true);
     try {
-      const eventsCollection = collection(db, "events"); // "events" collection reference
-      const eventsSnapshot = await getDocs(eventsCollection); // Saara data fetch karo
-      const eventsList = eventsSnapshot.docs.map((doc) => ({
+      const productsCollection = collection(db, "products"); // "products" collection reference
+      const productsSnapshot = await getDocs(productsCollection); // Saara data fetch karo
+      const productsList = productsSnapshot.docs.map((doc) => ({
         id: doc.id, // Document ID
         ...doc.data(), // Document ka data
       }));
-      setEvents(eventsList); // State mein save karo
+      setProducts(productsList); // State mein save karo
     } catch (error) {
-      console.error("Error fetching events:", error);
+      console.error("Error fetching products:", error);
     } finally {
       setLoading(false);
     }
   };
   useEffect(() => {
-    if (currentState === "Update/Delete Event") {
-      fetchEvents();
+    if (currentState === "Update/Delete Product") {
+      fetchProducts();
     }
   }, [currentState]);
   return loading ? (
@@ -777,8 +745,6 @@ const Event = () => {
         maxWidth: { xs: "100%", sm: "100%", md: "30%", lg: "30%" },
         mx: "auto",
         minHeight: "100%",
-       
-        
       }}
     >
       <Box
@@ -797,28 +763,28 @@ const Event = () => {
           aria-label="Basic button group"
         >
           <ToggleButton
-            value="Add Event"
-            onClick={() => setCurrentState("Add Event")}
+            value="Add Product"
+            onClick={() => setCurrentState("Add Product")}
             sx={{ textTransform: "none" }}
           >
-            Add Event
+            Add Product
           </ToggleButton>
           <ToggleButton
-            value="Update/Delete Event"
-            onClick={() => setCurrentState("Update/Delete Event")}
+            value="Update/Delete Product"
+            onClick={() => setCurrentState("Update/Delete Product")}
             sx={{ textTransform: "none" }}
           >
-            Update/Delete Event
+            Update/Delete Product
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
-      {currentState === "Add Event" && <AddEvent />}
-      {currentState === "Update/Delete Event" &&
+      {currentState === "Add Product" && <AddProduct />}
+      {currentState === "Update/Delete Product" &&
         !loading &&
-        (Boolean(events?.length) ? (
-          <EditOrDeleteEvent
-            eventData={events}
-            refresh={fetchEvents}
+        (Boolean(products?.length) ? (
+          <EditOrDeleteProduct
+            productData={products}
+            refresh={fetchProducts}
             showEditDelete={true}
           />
         ) : (
@@ -828,4 +794,4 @@ const Event = () => {
   );
 };
 
-export default Event;
+export default Product;

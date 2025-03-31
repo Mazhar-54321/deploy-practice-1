@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from './firebaseConfig';
 import { Box, Button, CircularProgress } from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
 
 function SignIn() {
   const [loader,setLoader] = useState(false);
@@ -38,7 +39,7 @@ function SignIn() {
     >
       <CircularProgress />
     </Box>
-      :<Button style={{textTransform:'none'}} variant='contained'  onClick={handleSignIn}>Sign in with Google</Button>
+      :<Button startIcon={<GoogleIcon />} style={{textTransform:'none'}} variant='outlined'  onClick={handleSignIn}>Sign in with Google</Button>
     }
     </div>
   );

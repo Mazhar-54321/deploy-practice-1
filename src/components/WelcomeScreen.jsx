@@ -5,11 +5,11 @@ const WelcomeScreen =({welcomeContent})=> {
  
     
   return (
-    <>
+    <div style={{padding:'10px'}}>
    <Typography variant="h6" component="h2">
   {welcomeContent}
 </Typography>
-    </>
+    </div>
   );
 }
 export default WelcomeScreen;

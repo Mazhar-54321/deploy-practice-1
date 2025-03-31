@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, ListItemIcon, Menu, MenuItem, createTheme } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Divider, ListItemIcon, Menu, MenuItem, createTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
 import MuiAppBar from '@mui/material/AppBar';
@@ -42,6 +42,11 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import GroupIcon from '@mui/icons-material/Group';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { DisplayCourses } from './components/DisplayCourses';
+import { EditOrDeleteEvent } from './components/Event';
+import DisplayEvents from './components/DisplayEvents';
+import ProductMiddleware from './components/ProductMiddleware';
+import DisplayProducts from './components/DisplayProducts';
+import DisplayVideos from './components/DisplayVideos';
 const drawerWidth = 300;
 const BACKGROUND_SELECTED = 'rgb(0,0,0,1)'
 const BACKGROUND_NULL = 'rgb(0,0,0,0)'
@@ -416,9 +421,10 @@ useEffect(()=>{getCities(db)},[]);
   //   background: BACKGROUND_NULL
   // },
   ],
-"others":[ {
-  title: 'Courses',
-  urduTitle:"Courses",
+"others":[ 
+  {
+  title: 'Videos',
+  urduTitle:"Videos",
   background: BACKGROUND_NULL,
   icon:<MenuBookIcon />
 },
@@ -435,27 +441,28 @@ useEffect(()=>{getCities(db)},[]);
   icon:<EventIcon />
 
 },
-{
-  title: 'Appointment',
-  urduTitle:"Appointment",
-  background: BACKGROUND_NULL,
-  icon:<EventAvailableIcon />
+// {
+//   title: 'Appointment',
+//   urduTitle:"Appointment",
+//   background: BACKGROUND_NULL,
+//   icon:<EventAvailableIcon />
 
-},
+// },
 {
-  title: 'Student Portal',
-  urduTitle:"Student Portal",
+  title: 'Portal',
+  urduTitle:"Portal",
   background: BACKGROUND_NULL,
   icon:<GroupIcon />
 
 },
-{
-  title: 'Whatsapp',
-  urduTitle:"Whatsapp",
-  background: BACKGROUND_NULL,
-  icon:<WhatsAppIcon />
+// {
+//   title: 'Whatsapp',
+//   urduTitle:"Whatsapp",
+//   background: BACKGROUND_NULL,
+//   icon:<WhatsAppIcon />
 
-}] })
+// }
+] })
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -493,8 +500,11 @@ useEffect(()=>{getCities(db)},[]);
     setAppbarText(title);
     switch(title){
       case 'Shijra Shareef':setCurrentLayout(<ExampleTree />) ;break;
-      case 'Student Portal':setCurrentLayout(<StudentPortal />);break;
+      case 'Portal':setCurrentLayout(<StudentPortal />);break;
       case 'Courses':setCurrentLayout(<DisplayCourses />); break;
+      case 'Events':setCurrentLayout(<DisplayEvents />); break;
+      case 'Products':setCurrentLayout(<DisplayProducts />); break;
+      case 'Videos':setCurrentLayout(<DisplayVideos />); break;
     }
    
   }
@@ -502,7 +512,7 @@ useEffect(()=>{getCities(db)},[]);
     switch (value) {
       case 0: setAppbarText(language?'Namaz':'نماز'); break;
       case 1: setAppbarText(language?'Roza':"روزہ"); ; break;
-      case 2: setAppbarText(language?'Hujj':"حج" ); ; break;
+      case 2: setAppbarText(language?'Events':"حج" ); ; break;
       case 3: setAppbarText(language?'Zakat':"زکات"); ; break;
       default :  setAppbarText(language?'Welcome':'تعارف');
     }
@@ -587,72 +597,172 @@ useEffect(()=>{getCities(db)},[]);
           
         </Toolbar>
       </AppBar>
-      <Drawer anchor={language?"left":"right"} sx={{
-          width: '70vw',  
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: '70vw',  // Must match the width defined above
-            boxSizing: 'border-box',
-          },
-        }} open={openDrawer} onClose={toggleDrawer(false)}>
-        <div>
-         
-          
-        <Accordion elevation={0} style={{marginTop:'0px',}} sx={{
-          
-          padding:0,
-              '&:before': {
-                  display: 'none',
-              }}}>
+      <Drawer
+      anchor={"left"}
+      sx={{
+        width:'70vw', // Responsive width
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          width: '70vw',
+          boxSizing: "border-box",
+          border: "none", // Remove default border
+          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)", // Add subtle shadow
+          borderRadius: "5px", // Rounded corners for a modern look
+          overflow: "hidden", // Prevent scrollbars
+        },
+      }}
+      open={openDrawer}
+      onClose={toggleDrawer(false)}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          bgcolor: "#f9f9f9", // Light background color
+        }}
+      >
+        {/* Accordion Section */}
+        <Accordion
+          elevation={0}
+          sx={{
+            padding: 0,
+            "&:before": { display: "none" },
+            bgcolor: "#ffffff", // White background for accordion
+            borderBottom: "1px solid #e0e0e0", // Subtle divider
+          }}
+        >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon style={{fontWeight:'bold',color:'#000000'}} />}
-            sx={{flexDirection:!language?'row-reverse':'row'}}
+            expandIcon={<ExpandMoreIcon sx={{ fontWeight: "bold", color: "#000000" }} />}
+            sx={{
+              flexDirection: !language ? "row-reverse" : "row",
+              alignItems: "center",
+              padding: "8px 16px", // Reduced padding
+              transition: "background-color 0.3s ease",
+              "&:hover": {
+                bgcolor: "#f0f0f0", // Hover effect
+              },
+            }}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Typography sx={{ width: '100%',textAlign:!language?'right':'left',fontWeight:'bold',fontSize:'18px', flexShrink: 0 }}>
-              {language?'Miya huzoor':'اعمال'}
+            <Typography
+              sx={{
+                width: "100%",
+                textAlign: !language ? "right" : "left",
+                fontWeight: "bold",
+                fontSize: "18px",
+                flexShrink: 0,
+                color: "#333333", // Darker text color
+              }}
+            >
+              {language ? "Miya huzoor" : "اعمال"}
             </Typography>
           </AccordionSummary>
-          <AccordionDetails style={{ padding: '0px 0px 0px 0px' }}>
-            <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px',flexDirection:'row-reverse' }}>
-              {listData['miyahuzzor'].map((text, index) => (
-                <ListItem 
-                sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} 
-                key={text+','+index} 
-                disablePadding>
-                  <ListItemButton onClick={() => {setOpenDrawer(false); setValue(index); getLayout(index,'miyahuzzor',text.title);  }}>
-                    
-                    <ListItemText sx={{marginLeft:'10px',fontSize:'12px',fontWeight:'100',textAlign:language?'left':'right'}} primary={language?text.title:text.urduTitle} />
+          <AccordionDetails sx={{ padding: 0 }}>
+            <List sx={{ padding: 0 }}>
+              {listData["miyahuzzor"].map((text, index) => (
+                <ListItem
+                  key={text + "," + index}
+                  disablePadding
+                  sx={{
+                    background: text.background,
+                    color:
+                      text.background === BACKGROUND_NULL ? "black" : "white",
+                    transition: "background-color 0.3s ease",
+                    "&:hover": {
+                      bgcolor: text.background
+                        ? "rgba(0, 0, 0, 0.1)"
+                        : "rgba(0, 0, 0, 0.05)",
+                    },
+                  }}
+                >
+                  <ListItemButton
+                    onClick={() => {
+                      setOpenDrawer(false);
+                      setValue(index);
+                      getLayout(index, "miyahuzzor", text.title);
+                    }}
+                  >
+                    <ListItemText
+                      sx={{
+                        marginLeft: "10px",
+                        fontSize: "14px",
+                        fontWeight: "500",
+                        textAlign: language ? "left" : "right",
+                        color:
+                          text.background === BACKGROUND_NULL
+                            ? "#333333"
+                            : "white",
+                      }}
+                      primary={language ? text.title : text.urduTitle}
+                    />
                   </ListItemButton>
                 </ListItem>
               ))}
             </List>
           </AccordionDetails>
         </Accordion>
-        <Divider style={{background:'#000000'}}/>
-        <List sx={{ padding: '0px 0px 0px 0px',marginTop:'0px',flexDirection:'row-reverse' }}>
-              {listData['others'].map((text, index) => (
-                <>
-                <ListItem 
-                sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} 
-                key={text+','+index} 
-                disablePadding>
-                  <ListItemButton onClick={() => {setOpenDrawer(false); setValue(index); getLayout(index,'others',text.title);  }}>
-                  <ListItemIcon sx={{  background: text.background, color: text.background == BACKGROUND_NULL ? 'black' : 'white',fontSize:'12px',fontWeight:'100' }} >
-                     {text.icon}
-                    </ListItemIcon>
-                    <ListItemText sx={{marginLeft:'5px',fontSize:'12px',fontWeight:'bold',textAlign:language?'left':'right'}} primary={language?text.title:text.urduTitle} />
-                   
-                  </ListItemButton>
 
-                </ListItem>
-                 {index !=listData['others'].length-1 && <Divider/>}
-                 </>
-              ))}
-            </List>
-        </div>
-      </Drawer>
+        {/* Divider */}
+        {/* <Divider sx={{ background: "#e0e0e0", margin: "4px 0" }} /> */}
+
+        {/* Other List Items */}
+        <List sx={{ padding: 0 }}>
+          {listData["others"].map((text, index) => (
+            <React.Fragment key={text + "," + index}>
+              <ListItem
+                disablePadding
+                sx={{
+                  background: text.background,
+                  color:
+                    text.background === BACKGROUND_NULL ? "black" : "white",
+                  transition: "background-color 0.3s ease",
+                  "&:hover": {
+                    bgcolor: text.background
+                      ? "rgba(0, 0, 0, 0.1)"
+                      : "rgba(0, 0, 0, 0.05)",
+                  },
+                }}
+              >
+                <ListItemButton
+                  onClick={() => {
+                    setOpenDrawer(false);
+                    setValue(index);
+                    getLayout(index, "others", text.title);
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      color:
+                        text.background === BACKGROUND_NULL ? "#333333" : "white",
+                      minWidth: "40px", // Ensure consistent spacing
+                    }}
+                  >
+                    {text.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      textAlign: language ? "left" : "right",
+                      color:
+                        text.background === BACKGROUND_NULL
+                          ? "#333333"
+                          : "white",
+                    }}
+                    primary={language ? text.title : text.urduTitle}
+                  />
+                </ListItemButton>
+              </ListItem>
+              {index !== listData["others"].length - 1 && (
+                <Divider sx={{ background: "#e0e0e0", margin: "4px 0" }} />
+              )}
+            </React.Fragment>
+          ))}
+        </List>
+      </Box>
+    </Drawer>
       <Main id='main-class' style={{padding:'0px',margin:'0px'}} open={open}>
         <DrawerHeader />
         {( appbarText!=='Welcome' && appbarText!=='تعارف')&&
