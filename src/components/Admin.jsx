@@ -49,8 +49,8 @@ export default function Admin({userId}) {
 
   return (
     <Box sx={{ width: '100%',padding:'0px'}}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider',padding:'5px' }}>
-        <Tabs variant='scrollable' scrollButtons='auto' value={value} onChange={handleChange} aria-label="basic tabs example">
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs variant='scrollable' scrollButtons={true} allowScrollButtonsMobile={true} value={value} onChange={handleChange} aria-label="basic tabs example">
           {/* <Tab style={{textTransform:'none',fontWeight:'bolder'}} label="Course" {...a11yProps(0)} />
           <Tab style={{textTransform:'none',fontWeight:'bolder'}} label="Classes" {...a11yProps(1)} />
           <Tab style={{textTransform:'none',fontWeight:'bolder'}} label="Student" {...a11yProps(2)} /> */}

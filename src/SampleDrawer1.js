@@ -47,6 +47,7 @@ import DisplayEvents from './components/DisplayEvents';
 import ProductMiddleware from './components/ProductMiddleware';
 import DisplayProducts from './components/DisplayProducts';
 import DisplayVideos from './components/DisplayVideos';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 const drawerWidth = 300;
 const BACKGROUND_SELECTED = 'rgb(0,0,0,1)'
 const BACKGROUND_NULL = 'rgb(0,0,0,0)'
@@ -426,7 +427,7 @@ useEffect(()=>{getCities(db)},[]);
   title: 'Videos',
   urduTitle:"Videos",
   background: BACKGROUND_NULL,
-  icon:<MenuBookIcon />
+  icon:<YouTubeIcon />
 },
 {
   title: 'Products',
